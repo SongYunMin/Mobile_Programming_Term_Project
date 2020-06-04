@@ -1,10 +1,3 @@
-# Mobile_Programming_Term_Project
-
-Created: Jun 04, 2020 3:30 PM
-Last Edited Time: Jun 04, 2020 3:40 PM
-
----
-
 # Mobile Programming Term Project
 
 ---
