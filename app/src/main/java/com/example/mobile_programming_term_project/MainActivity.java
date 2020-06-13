@@ -52,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        // 계산식 지우기
+        btn_C.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                editText.setText(null);
+            }
+        });
+        // result
+        btn_eq.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Button button = (Button) v;
+                String ClickValue = button.getText().toString();
+
+                switch(ClickValue){
+                    case "+":
+                    case "-":
+                    case "*":
+                    case "/":
+
+                }
+            }
+
+        });
 
 
 
