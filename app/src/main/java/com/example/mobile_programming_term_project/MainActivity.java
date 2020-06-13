@@ -11,34 +11,65 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editText;
-    private Button btn0_9[] = null;
-    private Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
-    private Button btn_plus, btn_minus, btn_mul, btn_div;
+    public Button btn0_9[] = null;
+    public Button btn_op[] = null;
+    public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
+    public Button btn_add, btn_sub, btn_mul, btn_div;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn0_9 = new Button[10];
-        int btn_id[] = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
+        btn_op = new Button[6];
+        int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
                 R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9};
+        int[] btn_id_op = {R.id.btn_add, R.id.btn_sub, R.id.btn_multi, R.id.btn_division
+                R.id.btn_eq,R.id.btn_c};
         editText = findViewById(R.id.edit);
-        // 0번부터 9번까지의 버튼 ID 받아옴
-            for (int i = 0; i < btn_id.length; i++) {
+        // 버튼들의 ID 받아옴
+        for (int i = 0; i < btn_id.length; i++) {
             this.btn0_9[i] = (Button) findViewById(btn_id[i]);
         }
-        for(int i=0;i<btn_id.length;i++){
-            this.btn0_9[i].setOnClickListener(new View.OnClickListener(){
+        // 연산자 ID 받아옴
+        for(int i=0;i<btn_op.length;i++){
+            this.btn_op[i] = (Button) findViewById(btn_id_op[i]);
+        }
+        // 비트 연산자
+        btn_XOR = (Button) findViewById(R.id.btn_XOR);
+        btn_AND = (Button) findViewById(R.id.btn_AND);
+        btn_OR = (Button) findViewById(R.id.btn_OR);
+        btn_NOT = (Button) findViewById(R.id.btn_NOT);
+        // 연산자
+        btn_add = (Button) findViewById(R.id.btn_add);
+        btn_sub = (Button) findViewById(R.id.btn_sub);
+        btn_mul = (Button) findViewById(R.id.btn_multi);
+        btn_div = (Button) findViewById(R.id.btn_division);
+        btn_eq = (Button) findViewById(R.id.btn_eq);
+        btn_C = (Button) findViewById(R.id.btn_c);
+
+        // Click Listener 붙임
+        for (int i = 0; i < btn_id.length; i++) {
+            this.btn0_9[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     for (int i = 0; i < 10; i++) {
-                        if(v.getId() == btn0_9[i].getId()){
-                            Toast.makeText(MainActivity.this, i+" 클릭됨",
-                                    Toast.LENGTH_SHORT).show();
+                        if (v.getId() == btn0_9[i].getId()) {
+                            // Click 구현부
+                            Button a = (Button) v;
+                            editText.append(a.getText());
                         }
                     }
                 }
             });
         }
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 }

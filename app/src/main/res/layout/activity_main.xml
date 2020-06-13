@@ -136,7 +136,7 @@
             android:text="0" />
 
         <Button
-            android:id="@+id/btn_result"
+            android:id="@+id/btn_eq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -144,7 +144,7 @@
 
         <!-- 취소 버튼 -->
         <Button
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_c"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -152,7 +152,7 @@
 
         <!-- 덧셈 버튼 -->
         <Button
-            android:id="@+id/btn_plus"
+            android:id="@+id/btn_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
