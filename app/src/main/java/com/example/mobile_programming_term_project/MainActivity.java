@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn0_9 = new Button[14];
         int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
+
                 R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9, R.id.btn_add, R.id.btn_sub,
                 R.id.btn_multi, R.id.btn_division,R.id.btn_XOR,R.id.btn_AND,R.id.btn_OR,
                 R.id.btn_NOT,R.id.btn_eq};
