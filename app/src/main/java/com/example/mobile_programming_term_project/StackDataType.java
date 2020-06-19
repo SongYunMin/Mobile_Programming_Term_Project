@@ -8,7 +8,6 @@ public class StackDataType implements Stack {
     private int top;
     private int stackSize;
     private char stackArr[];
-    private String result;
 
     // 생성자 호출
     public StackDataType(int stackSize) {
@@ -27,32 +26,23 @@ public class StackDataType implements Stack {
     }
 
     @Override      // 빈 Stack인지 확인 함
-    public boolean isEmpty() {
+    public boolean isEmpty(StackDataType Stack) {
         return (top == -1);
     }
 
     @Override
-    public boolean isFull() {
+    public boolean isFull(StackDataType Stack) {
         return (top == this.stackSize - 1);
     }
 
     @Override
-    public void push(String item) {
+    public void push(StackDataType Stack, char item) {
 
-    }
-
-    public void push(char item) {
-        if (isFull()) {
-            error("Stack is Full!!");
-        } else {
-            stackArr[++top] = item;
-            Log.i("Inserted : ", "");
-        }
     }
 
     @Override
-    public char pop() {
-        if (isEmpty()) {
+    public char pop(StackDataType Stack) {
+        if (isEmpty(Stack)) {
             error("Stack is Empty!!");
             System.exit(-1);
         }
@@ -61,8 +51,8 @@ public class StackDataType implements Stack {
     }
 
     @Override
-    public char peek() {
-        if (isEmpty()) {
+    public char peek(StackDataType Stack) {
+        if (isEmpty(Stack)) {
             error("Stack is Empty!!!");
             System.exit(-1);
         }
@@ -72,22 +62,12 @@ public class StackDataType implements Stack {
     }
 
     @Override
-    public void clear() {
+    public void clear(StackDataType Stack) {
 
     }
 
-    // Getter Method
-    String getResult() {
-        return result;
-    }
-
-    // Setter Method
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    void init_stack() {
-
+    void init_stack(StackDataType stack) {
+        stack.top = -1;
     }
 
     // 우선순위 반환
@@ -107,11 +87,15 @@ public class StackDataType implements Stack {
     }
 
     // 중위수식 -> 후위수식 변환
-    void infixToPostfix(String exp) {
+    void infixToPostfix(char[] exp) {
         int i = 0;
         char ch, top_op;
-        int len = exp.length();
-        StackDataType s;
+        int len = exp.length;
+        StackDataType stack = new StackDataType(stackSize);
 
+        init_stack(stack);                  // 스택 초기화
+        for (i = 0; i < len; i++) {
+            ch = exp[i];
+        }
     }
 }
