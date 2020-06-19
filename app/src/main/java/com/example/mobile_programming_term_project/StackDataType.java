@@ -7,18 +7,22 @@ public class StackDataType implements Stack {
     // private는 getter/setter의 존재 이유
     private int top;
     private int stackSize;
-    private String stackArr[];
+    private char stackArr[];
     private String result;
 
     // 생성자 호출
     public StackDataType(int stackSize) {
         top = -1;
         this.stackSize = stackSize;
-        stackArr = new String[this.stackSize];
+        stackArr = new char[this.stackSize];
     }
+//
+//    char error(char c){
+//        return c;
+//    }
 
-    String error(String message){
-        Log.d("ERROR : ",message);
+    String error(String message) {
+        Log.d("ERROR : ", message);
         return message;
     }
 
@@ -34,33 +38,37 @@ public class StackDataType implements Stack {
 
     @Override
     public void push(String item) {
-        if(isFull()){
+
+    }
+
+    public void push(char item) {
+        if (isFull()) {
             error("Stack is Full!!");
-        }else{
+        } else {
             stackArr[++top] = item;
-            Log.i("Inserted : ",item);
+            Log.i("Inserted : ", "");
         }
     }
 
     @Override
-    public String pop() {
-        if(isEmpty()){
+    public char pop() {
+        if (isEmpty()) {
             error("Stack is Empty!!");
-        }else{
-            Log.i("Pop : ", stackArr[top]);
-            return stackArr[top--];
+            System.exit(-1);
         }
-        return " ";
+        Log.i("Pop : ", "");
+        return stackArr[top--];
     }
 
     @Override
-    public String peek() {
-        if(isEmpty()){
+    public char peek() {
+        if (isEmpty()) {
             error("Stack is Empty!!!");
-        }else{
-            return stackArr[top];
+            System.exit(-1);
         }
-        return " ";
+        Log.i("Peek : ", "");
+        return stackArr[top];
+
     }
 
     @Override
@@ -103,5 +111,7 @@ public class StackDataType implements Stack {
         int i = 0;
         char ch, top_op;
         int len = exp.length();
+        StackDataType s;
+
     }
 }

@@ -4,7 +4,7 @@ public interface Stack {
     boolean isEmpty();
     boolean isFull();
     void push (String item);
-    String pop();
-    String peek();
+    char pop();
+    char peek();
     void clear();
 }
