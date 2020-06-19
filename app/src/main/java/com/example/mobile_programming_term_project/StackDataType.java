@@ -15,6 +15,7 @@ public class StackDataType implements Stack {
         this.stackSize = stackSize;
         stackArr = new char[this.stackSize];
     }
+
 //
 //    char error(char c){
 //        return c;
