@@ -8,6 +8,7 @@ public class StackDataType implements Stack {
     private int top;
     private int stackSize;
     private char[] stackArr;
+    public char[] resultChar;
 
     // 생성자 호출
     public StackDataType(int stackSize) {
@@ -16,40 +17,38 @@ public class StackDataType implements Stack {
         stackArr = new char[this.stackSize];
     }
 
-//
+    //
 //    char error(char c){
 //        return c;
 //    }
-
     String error(String message) {
         Log.d("ERROR : ", message);
         return message;
     }
 
     @Override      // 빈 Stack인지 확인 함
-    public boolean isEmpty(StackDataType Stack) {
+    public boolean isEmpty() {
         return (top == -1);
     }
 
     @Override
-    public boolean isFull(StackDataType Stack) {
+    public boolean isFull() {
         return (top == stackSize - 1);
     }
 
     @Override
-    public void push(StackDataType Stack, char item) {
-        if(isFull(Stack)){
-            Log.e("ERROR : ","Stack Over Flow");
+    public void push(char item) {
+        if (isFull()) {
+            Log.e("ERROR : ", "Stack Over Flow");
             System.exit(-1);
-        }
-        else{
-            Stack.stackArr[++top] = item;
+        } else {
+            stackArr[++top] = item;
         }
     }
 
     @Override
-    public char pop(StackDataType Stack) {
-        if (isEmpty(Stack)) {
+    public char pop() {
+        if (isEmpty()) {
             error("Stack is Empty!!");
             System.exit(-1);
         }
@@ -58,8 +57,8 @@ public class StackDataType implements Stack {
     }
 
     @Override
-    public char peek(StackDataType Stack) {
-        if (isEmpty(Stack)) {
+    public char peek() {
+        if (isEmpty()) {
             error("Stack is Empty!!!");
             System.exit(-1);
         }
@@ -69,7 +68,7 @@ public class StackDataType implements Stack {
     }
 
     @Override
-    public void clear(StackDataType Stack) {
+    public void clear() {
 
     }
 
@@ -94,7 +93,7 @@ public class StackDataType implements Stack {
     }
 
     // 중위수식 -> 후위수식 변환
-    String infixToPostfix(char[] exp) {
+    char[] infixToPostfix(char[] exp) {
         int i = 0;
         char ch, top_op;
         int len = exp.length;
@@ -109,23 +108,23 @@ public class StackDataType implements Stack {
                 case '-':
                 case '*':
                 case '/':
-                    while (!isEmpty(stack) && (returnOfPriority(ch) <=
-                            returnOfPriority(peek(stack)))){
+                    while (!isEmpty() && (returnOfPriority(ch) <=
+                            returnOfPriority(peek()))) {
                         // Todo 3. 출력문 필요
-                        result.append(pop(stack));
+                        result.append(pop());
                     }
-                    push(stack, ch);
+                    push(ch);
                     break;
-                case'(':        // 왼 쪽 괄호
-                    push(stack,ch);
+                case '(':        // 왼 쪽 괄호
+                    push(ch);
                     break;
-                case')':        // 오른쪽 괄호
-                    top_op = pop(stack);
+                case ')':        // 오른쪽 괄호
+                    top_op = pop();
                     // 왼쪽 괄호를 만날때 까지 출력
-                    while(top_op != '('){
+                    while (top_op != '(') {
                         // Todo 3. 출력문 필요
                         result.append(top_op);
-                        top_op = pop(stack);
+                        top_op = pop();
                     }
                     break;
                 default:
@@ -134,10 +133,43 @@ public class StackDataType implements Stack {
                     break;
             }
         }
-        while(!isEmpty(stack)){
-            result.append(pop(stack));
+        while (!isEmpty()) {
+            result.append(pop());
             Log.i("Result : ", String.valueOf(result));
+            resultChar = String.valueOf(result).toCharArray();
         }
-        return String.valueOf(result);
+        return resultChar;
+    }
+
+    char Calculation(char[] resultChar) {
+        int Operation1, Operation2, Value, i = 0;
+        int FormualLen = resultChar.length;
+        char ch;
+
+        for (i = 0; i < FormualLen; i++) {
+            ch = resultChar[i];
+            if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
+                Value = ch - '0';       // 입력이 피연산자 이면
+                push((char) Value);
+            } else {           // 연산자이면 피연산자를 스택에서 제거
+                Operation2 = pop();
+                Operation1 = pop();
+                switch (ch) {
+                    case '+':
+                        push((char) (Operation1 + Operation2));
+                        break;
+                    case '-':
+                        push((char) (Operation1 - Operation2));
+                        break;
+                    case '*':
+                        push((char) (Operation1 * Operation2));
+                        break;
+                    case '/':
+                        push((char) (Operation1 / Operation2));
+                        break;
+                }
+            }
+        }
+        return pop();
     }
 }

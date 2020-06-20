@@ -60,10 +60,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                String infix = editText.getText().toString();
-                char[] PostFix = infix.toCharArray();
-                infix = result.infixToPostfix(PostFix);
-                editText.setText(infix);
+                String infix = editText.getText().toString();       // EditText에서 얻음
+                char[] PostFix = infix.toCharArray();               // String -> char[]
+                char[] buf;
+                char buf_2;
+                buf = result.infixToPostfix(PostFix);
+                buf_2 = result.Calculation(buf);
+                editText.setText(buf_2);
             }
 
         });
