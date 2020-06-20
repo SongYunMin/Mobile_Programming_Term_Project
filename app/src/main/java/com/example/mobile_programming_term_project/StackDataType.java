@@ -7,7 +7,7 @@ public class StackDataType implements Stack {
     // private는 getter/setter의 존재 이유
     private int top;
     private int stackSize;
-    private char stackArr[];
+    private char[] stackArr;
 
     // 생성자 호출
     public StackDataType(int stackSize) {
@@ -33,12 +33,18 @@ public class StackDataType implements Stack {
 
     @Override
     public boolean isFull(StackDataType Stack) {
-        return (top == this.stackSize - 1);
+        return (top == stackSize - 1);
     }
 
     @Override
     public void push(StackDataType Stack, char item) {
-
+        if(isFull(Stack)){
+            Log.e("ERROR : ","Stack Over Flow");
+            System.exit(-1);
+        }
+        else{
+            Stack.stackArr[++top] = item;
+        }
     }
 
     @Override
@@ -88,15 +94,50 @@ public class StackDataType implements Stack {
     }
 
     // 중위수식 -> 후위수식 변환
-    void infixToPostfix(char[] exp) {
+    String infixToPostfix(char[] exp) {
         int i = 0;
         char ch, top_op;
         int len = exp.length;
         StackDataType stack = new StackDataType(stackSize);
+        StringBuilder result = new StringBuilder("");
 
         init_stack(stack);                  // 스택 초기화
         for (i = 0; i < len; i++) {
             ch = exp[i];
+            switch (ch) {
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    while (!isEmpty(stack) && (returnOfPriority(ch) <=
+                            returnOfPriority(peek(stack)))){
+                        // Todo 3. 출력문 필요
+                        result.append(pop(stack));
+                    }
+                    push(stack, ch);
+                    break;
+                case'(':        // 왼 쪽 괄호
+                    push(stack,ch);
+                    break;
+                case')':        // 오른쪽 괄호
+                    top_op = pop(stack);
+                    // 왼쪽 괄호를 만날때 까지 출력
+                    while(top_op != '('){
+                        // Todo 3. 출력문 필요
+                        result.append(top_op);
+                        top_op = pop(stack);
+                    }
+                    break;
+                default:
+                    // Todo 3. 출력문 필요
+                    result.append(ch);
+                    break;
+            }
         }
+        while(!isEmpty(stack)){
+            result.append(pop(stack));
+            Log.i("Result : ", String.valueOf(result));
+        }
+        return String.valueOf(result);
     }
 }

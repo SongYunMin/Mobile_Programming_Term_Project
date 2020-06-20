@@ -42,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
         btn_eq = (Button) findViewById(R.id.btn_eq);
         btn_C = (Button) findViewById(R.id.btn_c);
         String buf = "Test String Code";
-        StackDataType result = new StackDataType(STACK_MAX_SIZE);
-        result.setResult(buf);
-        result.infixToPostfix(result.getResult());
+        // Final 선언을 해주어야 inner Class 접근가능
+        final StackDataType result = new StackDataType(STACK_MAX_SIZE);
 
         // 계산식 지우기
         btn_C.setOnClickListener(new View.OnClickListener() {
@@ -53,77 +52,93 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText(null);
             }
         });
+
+        // Todo 1. '=' 문자 Click 시 결과 String toCharArray 메소드 이용, Char 배열 생성
+        // Todo 2. StackDataType Object 생성, infix -> Postfix
         // result
-        btn_eq.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
+        btn_eq.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Button button = (Button) v;
-                String ClickValue = button.getText().toString();
-                switch (ClickValue) {
-                    case "+":
-                    case "-":
-                    case "*":
-                    case "/":
-                    case "=":
-                        if ("".equals(fValue)) {
-                            fValue = editText.getText().toString();
-                            editText.setText("");
-                        } else {
-                            if (!"".equals(operator)) {
-                                String sValue = editText.getText().toString();
-                                Integer cal = 0;
-                                switch (operator) {
-                                    case "+":
-                                        cal = Integer.parseInt(fValue) +
-                                                Integer.parseInt(sValue);
-                                        break;
-                                    case "-":
-                                        cal = Integer.parseInt(fValue) -
-                                                Integer.parseInt(sValue);
-                                        break;
-                                    case "*":
-                                        cal = Integer.parseInt(fValue) *
-                                                Integer.parseInt(sValue);
-                                        break;
-                                    case "/":
-                                        cal = Integer.parseInt(fValue) /
-                                                Integer.parseInt(sValue);
-                                        break;
-                                }
-                                editText.setText(cal.toString());
-                                fValue = "";
-                                isInit = true;
-
-                                if ("=".equals(ClickValue)) {
-                                    operator = "";
-                                    return;
-                                }
-                                fValue = cal.toString();
-                            }
-                            operator = ClickValue;
-                            break;
-
-                        }
-                    default:
-                        if (isInit) {
-                            isInit = false;
-                            editText.setText(ClickValue);
-                        } else {
-                            editText.setText(editText.getText().toString() + ClickValue);
-                        }
-                }
+            public void onClick(View v)
+            {
+                String infix = editText.getText().toString();
+                char[] PostFix = infix.toCharArray();
+                infix = result.infixToPostfix(PostFix);
+                editText.setText(infix);
             }
 
         });
+
+//        // result
+//        btn_eq.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View v) {
+//                Button button = (Button) v;
+//                String ClickValue = button.getText().toString();
+//                switch (ClickValue) {
+//                    case "+":
+//                    case "-":
+//                    case "*":
+//                    case "/":
+//                    case "=":
+//                        if ("".equals(fValue)) {
+//                            fValue = editText.getText().toString();
+//                            editText.setText("");
+//                        } else {
+//                            if (!"".equals(operator)) {
+//                                String sValue = editText.getText().toString();
+//                                Integer cal = 0;
+//                                switch (operator) {
+//                                    case "+":
+//                                        cal = Integer.parseInt(fValue) +
+//                                                Integer.parseInt(sValue);
+//                                        break;
+//                                    case "-":
+//                                        cal = Integer.parseInt(fValue) -
+//                                                Integer.parseInt(sValue);
+//                                        break;
+//                                    case "*":
+//                                        cal = Integer.parseInt(fValue) *
+//                                                Integer.parseInt(sValue);
+//                                        break;
+//                                    case "/":
+//                                        cal = Integer.parseInt(fValue) /
+//                                                Integer.parseInt(sValue);
+//                                        break;
+//                                }
+//                                editText.setText(cal.toString());
+//                                fValue = "";
+//                                isInit = true;
+//
+//                                if ("=".equals(ClickValue)) {
+//                                    operator = "";
+//                                    return;
+//                                }
+//                                fValue = cal.toString();
+//                            }
+//                            operator = ClickValue;
+//                            break;
+//
+//                        }
+//                    default:
+//                        if (isInit) {
+//                            isInit = false;
+//                            editText.setText(ClickValue);
+//                        } else {
+//                            editText.setText(editText.getText().toString() + ClickValue);
+//                        }
+//                }
+//            }
+//
+//        });
     }
 
-    Button.OnClickListener mClickListener = new View.OnClickListener() {
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void onClick(View v) {
-            Button a = (Button) v;
-            editText.setText(editText.getText().toString() + a.getText().toString());
-        }
-    };
-}
+        Button.OnClickListener mClickListener = new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                Button a = (Button) v;
+                editText.setText(editText.getText().toString() + a.getText().toString());
+            }
+        };
+    }
