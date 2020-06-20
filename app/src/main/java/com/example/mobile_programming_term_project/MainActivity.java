@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 char buf_2;
                 buf = result.infixToPostfix(PostFix);
                 buf_2 = result.Calculation(buf);
-                editText.setText(buf_2);
             }
 
         });

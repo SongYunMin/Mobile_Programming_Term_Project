@@ -56,6 +56,19 @@ public class StackDataType implements Stack {
         return stackArr[top--];
     }
 
+
+//    @Override
+//    public int pop(int a)
+//    {
+//        if (isEmpty()) {
+//            error("Stack is Empty!!");
+//            System.exit(-1);
+//        }
+//        Log.i("Pop : ", "");
+//        return (int)stackArr[top--];
+//    }
+
+
     @Override
     public char peek() {
         if (isEmpty()) {
@@ -144,6 +157,7 @@ public class StackDataType implements Stack {
     char Calculation(char[] resultChar) {
         int Operation1, Operation2, Value, i = 0;
         int FormualLen = resultChar.length;
+        int a=0;
         char ch;
 
         for (i = 0; i < FormualLen; i++) {
