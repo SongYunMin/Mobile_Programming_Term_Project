@@ -53,9 +53,9 @@ public class StackDataType implements Stack {
             System.exit(-1);
         }
         Log.i("Pop : ", "");
+
         return stackArr[top--];
     }
-
 
 //    @Override
 //    public int pop(int a)
@@ -157,6 +157,7 @@ public class StackDataType implements Stack {
     char Calculation(char[] resultChar) {
         int Operation1, Operation2, Value, i = 0;
         int FormualLen = resultChar.length;
+
         int a=0;
         char ch;
 
