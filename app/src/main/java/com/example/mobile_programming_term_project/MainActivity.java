@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     private EditText editText;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 char[] buf;
                 char buf_2;
                 buf = result.infixToPostfix(PostFix);
-                buf_2 = result.Calculation(buf);
+                editText.setText(String.valueOf(buf));
             }
 
         });

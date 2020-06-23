@@ -57,18 +57,6 @@ public class StackDataType implements Stack {
         return stackArr[top--];
     }
 
-//    @Override
-//    public int pop(int a)
-//    {
-//        if (isEmpty()) {
-//            error("Stack is Empty!!");
-//            System.exit(-1);
-//        }
-//        Log.i("Pop : ", "");
-//        return (int)stackArr[top--];
-//    }
-
-
     @Override
     public char peek() {
         if (isEmpty()) {
@@ -105,6 +93,20 @@ public class StackDataType implements Stack {
         return -1;
     }
 
+//    char[] infixToPostfix(char[] exp) {
+//        int i = 0;
+//        char ch, top_op;
+//        int len = exp.length;
+//        StackDataType stack = new StackDataType(stackSize);
+//        StringBuilder result = new StringBuilder("");
+//
+//        init_stack(stack);
+//
+//
+//
+//        return result;
+//    }
+
     // 중위수식 -> 후위수식 변환
     char[] infixToPostfix(char[] exp) {
         int i = 0;
@@ -113,7 +115,7 @@ public class StackDataType implements Stack {
         StackDataType stack = new StackDataType(stackSize);
         StringBuilder result = new StringBuilder("");
 
-        init_stack(stack);                  // 스택 초기화
+        init_stack(stack);                           // 스택 초기화
         for (i = 0; i < len; i++) {
             ch = exp[i];
             switch (ch) {
@@ -125,28 +127,38 @@ public class StackDataType implements Stack {
                             returnOfPriority(peek()))) {
                         // Todo 3. 출력문 필요
                         result.append(pop());
+                        result.append(' ');
                     }
                     push(ch);
                     break;
-                case '(':        // 왼 쪽 괄호
+                case '(':                           // 왼쪽 괄호
                     push(ch);
                     break;
-                case ')':        // 오른쪽 괄호
+                case ')':                           // 오른쪽 괄호
                     top_op = pop();
                     // 왼쪽 괄호를 만날때 까지 출력
                     while (top_op != '(') {
                         // Todo 3. 출력문 필요
                         result.append(top_op);
+                        result.append(' ');
                         top_op = pop();
                     }
                     break;
-                default:
-                    // Todo 3. 출력문 필요
+                default:                            // 피연산자 라면?
                     result.append(ch);
+                    // 아스키 코드 이용
+                    if(i==exp.length-1){
+                        break;
+                    }
+                    if (exp[i + 1] == '+' || exp[i + 1] == '-' ||
+                            exp[i + 1] == '*' || exp[i + 1] == '/') {
+                        result.append(' ');
+                    }
                     break;
             }
         }
         while (!isEmpty()) {
+            result.append(' ');
             result.append(pop());
             Log.i("Result : ", String.valueOf(result));
             resultChar = String.valueOf(result).toCharArray();
@@ -158,7 +170,7 @@ public class StackDataType implements Stack {
         int Operation1, Operation2, Value, i = 0;
         int FormualLen = resultChar.length;
 
-        int a=0;
+        int a = 0;
         char ch;
 
         for (i = 0; i < FormualLen; i++) {
