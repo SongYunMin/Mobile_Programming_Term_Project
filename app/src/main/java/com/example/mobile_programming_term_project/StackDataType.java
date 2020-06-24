@@ -194,7 +194,6 @@ public class StackDataType implements Stack {
                 }
             }
         }
-
         for (i = 0; i < resultCharLen; i++) {
             ch = resultChar[i];
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
