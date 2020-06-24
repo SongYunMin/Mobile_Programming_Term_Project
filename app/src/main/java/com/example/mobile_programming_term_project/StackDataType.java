@@ -101,9 +101,7 @@ public class StackDataType implements Stack {
 //        StringBuilder result = new StringBuilder("");
 //
 //        init_stack(stack);
-//
-//
-//
+
 //        return result;
 //    }
 
