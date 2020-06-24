@@ -185,15 +185,15 @@ public class StackDataType implements Stack {
         StringBuilder op1 = new StringBuilder("");
         StringBuilder op2 = new StringBuilder("");
 
-        for (i = 0; i < resultCharLen; i++) {
-            ch = resultChar[i];
-            while (resultChar[i] != ' ') {          // i+1 index가 공백이 아닐 때 까지
-                // 입력이 연산자가 아니라면?
-                if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
-                    push(ch);
-                }
-            }
-        }
+//        for (i = 0; i < resultCharLen; i++) {
+//            ch = resultChar[i];
+//            while (resultChar[i] != ' ') {          // i+1 index가 공백이 아닐 때 까지
+//                // 입력이 연산자가 아니라면?
+//                if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
+//                    push(ch);
+//                }
+//            }
+//        }
         for (i = 0; i < resultCharLen; i++) {
             ch = resultChar[i];
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
@@ -201,22 +201,29 @@ public class StackDataType implements Stack {
                 push((char) Value);     // Stack Push
 
             } else {           // 연산자이면 피연산자를 스택에서 제거
-                Operation2 = pop();             // Pop 된 연산자
-                Operation1 = pop();             // Pop 된 연산자
-                switch (ch) {
-                    case '+':
-                        push((char) (Operation1 + Operation2));
-                        break;
-                    case '-':
-                        push((char) (Operation1 - Operation2));
-                        break;
-                    case '*':
-                        push((char) (Operation1 * Operation2));
-                        break;
-                    case '/':
-                        push((char) (Operation1 / Operation2));
-                        break;
-                }
+//                Operation2 = pop();             // Pop 된 연산자
+//                Operation1 = pop();             // Pop 된 연산자
+                // TODO : 뒤로 붙이는게 아니라 앞으로 붙여야 함
+                do {
+                    op2.insert(0, pop());
+                } while(peek() != ' ');
+                do {
+                    op1.insert(0, pop());
+                } while(peek() != ' ');
+//                switch (ch) {
+//                    case '+':
+//                        push((char) (Operation1 + Operation2));
+//                        break;
+//                    case '-':
+//                        push((char) (Operation1 - Operation2));
+//                        break;
+//                    case '*':
+//                        push((char) (Operation1 * Operation2));
+//                        break;
+//                    case '/':
+//                        push((char) (Operation1 / Operation2));
+//                        break;
+//                }
             }
         }
         return pop();
