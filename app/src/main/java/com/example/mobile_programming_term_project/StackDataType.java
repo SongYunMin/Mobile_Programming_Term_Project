@@ -192,13 +192,14 @@ public class StackDataType implements Stack {
                 if (emptyCount != 2) {
                     for (int j = 0; j < i; j++) {
                         if(emptyCount == 0 && resultChar[j] != ' ') {
-                            op2.insert(0, resultChar[j]);
+                            op2.append(resultChar[j]);
                             if(resultChar[j] == ' '){
                                 emptyCount++;
+                                continue;
                             }
                         }
                         if(emptyCount == 1 && resultChar[j] != ' '){
-                            op1.insert(0,resultChar[j]);
+                            op1.append(resultChar[j]);
                         }
                     }
                 }
@@ -215,7 +216,7 @@ public class StackDataType implements Stack {
 //                        push((char) (Operation1 - Operation2));
 //                        break;
 //                    case '*':
-//                        push((char) (Operation1 * Operation2));
+//                        push((char) (Opera tion1 * Operation2));
 //                        break;
 //                    case '/':
 //                        push((char) (Operation1 / Operation2));
