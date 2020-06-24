@@ -67,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 char[] buf;
                 char buf_2;
                 buf = result.infixToPostfix(PostFix);
+                // TODO : PostFix Calculator 기능 구현
                 editText.setText(String.valueOf(buf));
+                result.Calculation(buf);
             }
-
         });
     }
 

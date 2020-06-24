@@ -45,6 +45,17 @@ public class StackDataType implements Stack {
             stackArr[++top] = item;
         }
     }
+//
+//    @Override
+//    public void push(String item) {
+//        char[] item_arr = item.toCharArray();
+//        if (isFull()) {
+//            Log.e("ERROR : ", "Stack Over Flow");
+//            System.exit(-1);
+//        } else {
+//            stackArr[++top] = item_arr;
+//        }
+//    }
 
     @Override
     public char pop() {
@@ -145,7 +156,7 @@ public class StackDataType implements Stack {
                 default:                            // 피연산자 라면?
                     result.append(ch);
                     // 아스키 코드 이용
-                    if(i==exp.length-1){
+                    if (i == exp.length - 1) {
                         break;
                     }
                     if (exp[i + 1] == '+' || exp[i + 1] == '-' ||
@@ -165,20 +176,34 @@ public class StackDataType implements Stack {
     }
 
     char Calculation(char[] resultChar) {
-        int Operation1, Operation2, Value, i = 0;
-        int FormualLen = resultChar.length;
-
+        int Operation1, Operation2;
+        int Value, i = 0;
+        int resultCharLen = resultChar.length;
         int a = 0;
         char ch;
+        // TODO : StringBUilder를 이용하여 두자리수 이상 후위표기 연산기능 구현
+        StringBuilder op1 = new StringBuilder("");
+        StringBuilder op2 = new StringBuilder("");
 
-        for (i = 0; i < FormualLen; i++) {
+        for (i = 0; i < resultCharLen; i++) {
+            ch = resultChar[i];
+            while (resultChar[i] != ' ') {          // i+1 index가 공백이 아닐 때 까지
+                // 입력이 연산자가 아니라면?
+                if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
+                    push(ch);
+                }
+            }
+        }
+
+        for (i = 0; i < resultCharLen; i++) {
             ch = resultChar[i];
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
                 Value = ch - '0';       // 입력이 피연산자 이면
-                push((char) Value);
+                push((char) Value);     // Stack Push
+
             } else {           // 연산자이면 피연산자를 스택에서 제거
-                Operation2 = pop();
-                Operation1 = pop();
+                Operation2 = pop();             // Pop 된 연산자
+                Operation1 = pop();             // Pop 된 연산자
                 switch (ch) {
                     case '+':
                         push((char) (Operation1 + Operation2));
