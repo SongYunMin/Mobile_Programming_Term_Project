@@ -134,7 +134,6 @@ public class StackDataType implements Stack {
                 case '/':
                     while (!isEmpty() && (returnOfPriority(ch) <=
                             returnOfPriority(peek()))) {
-                        // Todo 3. 출력문 필요
                         result.append(pop());
                         result.append(' ');
                     }
@@ -147,7 +146,6 @@ public class StackDataType implements Stack {
                     top_op = pop();
                     // 왼쪽 괄호를 만날때 까지 출력
                     while (top_op != '(') {
-                        // Todo 3. 출력문 필요
                         result.append(top_op);
                         result.append(' ');
                         top_op = pop();
@@ -155,7 +153,6 @@ public class StackDataType implements Stack {
                     break;
                 default:                            // 피연산자 라면?
                     result.append(ch);
-                    // 아스키 코드 이용
                     if (i == exp.length - 1) {
                         break;
                     }
@@ -176,8 +173,7 @@ public class StackDataType implements Stack {
     }
 
     char Calculation(char[] resultChar) {
-        int Operation1, Operation2;
-        int Value, i = 0;
+        int Operation1, Operation2, emptyCount = 0;
         int resultCharLen = resultChar.length;
         int a = 0;
         char ch;
@@ -185,31 +181,32 @@ public class StackDataType implements Stack {
         StringBuilder op1 = new StringBuilder("");
         StringBuilder op2 = new StringBuilder("");
 
-//        for (i = 0; i < resultCharLen; i++) {
-//            ch = resultChar[i];
-//            while (resultChar[i] != ' ') {          // i+1 index가 공백이 아닐 때 까지
-//                // 입력이 연산자가 아니라면?
-//                if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
-//                    push(ch);
-//                }
-//            }
-//        }
-        for (i = 0; i < resultCharLen; i++) {
+
+        // 연산을 진행하는 Loop
+        for (int i = 0; i < resultCharLen; i++) {
             ch = resultChar[i];
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
-                Value = ch - '0';       // 입력이 피연산자 이면
-                push((char) Value);     // Stack Push
-
+                // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
+                push(ch);
             } else {           // 연산자이면 피연산자를 스택에서 제거
-//                Operation2 = pop();             // Pop 된 연산자
-//                Operation1 = pop();             // Pop 된 연산자
-                // TODO : 뒤로 붙이는게 아니라 앞으로 붙여야 함
-                do {
-                    op2.insert(0, pop());
-                } while(peek() != ' ');
-                do {
-                    op1.insert(0, pop());
-                } while(peek() != ' ');
+                if (emptyCount != 2) {
+                    for (int j = 0; j < i; j++) {
+                        if(emptyCount == 0 && resultChar[j] != ' ') {
+                            op2.insert(0, resultChar[j]);
+                            if(resultChar[j] == ' '){
+                                emptyCount++;
+                            }
+                        }
+                        if(emptyCount == 1 && resultChar[j] != ' '){
+                            op1.insert(0,resultChar[j]);
+                        }
+                    }
+                }
+
+                Operation2 = pop();             // Pop 된 연산자
+                Operation1 = pop();             // Pop 된 연산자
+
+                // TODO : 연산 진행 시 Char -> Int 로 Parsing 필요
 //                switch (ch) {
 //                    case '+':
 //                        push((char) (Operation1 + Operation2));

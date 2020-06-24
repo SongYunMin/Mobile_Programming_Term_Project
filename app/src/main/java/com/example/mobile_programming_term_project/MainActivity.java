@@ -55,31 +55,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Todo 1. '=' 문자 Click 시 결과 String toCharArray 메소드 이용, Char 배열 생성
-        // Todo 2. StackDataType Object 생성, infix -> Postfix
+
         // result
-        btn_eq.setOnClickListener(new View.OnClickListener(){
+        btn_eq.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 char[] PostFix = infix.toCharArray();               // String -> char[]
                 char[] buf;
                 char buf_2;
                 buf = result.infixToPostfix(PostFix);
-                // TODO : PostFix Calculator 기능 구현
                 editText.setText(String.valueOf(buf));
                 result.Calculation(buf);
             }
         });
     }
 
-        Button.OnClickListener mClickListener = new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                Button a = (Button) v;
-                editText.setText(editText.getText().toString() + a.getText().toString());
-            }
-        };
-    }
+    Button.OnClickListener mClickListener = new View.OnClickListener() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onClick(View v) {
+            Button a = (Button) v;
+            editText.setText(editText.getText().toString() + a.getText().toString());
+        }
+    };
+}
