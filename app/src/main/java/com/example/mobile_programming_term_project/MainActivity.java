@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
-        for (int i = 0; i < btn_id.length; i++) {
-            findViewById(btn_id[i]).setOnClickListener(mClickListener);
+        // IDE 에서 for- each 추천해서 쓰긴 쓴다만,,,
+        for (int value : btn_id) {
+            findViewById(value).setOnClickListener(mClickListener);
         }
         // 비트 연산자
         btn_XOR = (Button) findViewById(R.id.btn_XOR);
@@ -62,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
         btn_eq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float result;
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 char[] POSTFIX;
                 POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
                 editText.setText(String.valueOf(POSTFIX));
-                calculationResult.Calculation(POSTFIX);
+                result = calculationResult.Calculation(POSTFIX);
             }
         });
     }

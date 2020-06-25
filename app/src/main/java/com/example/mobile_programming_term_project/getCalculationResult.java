@@ -44,7 +44,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public double pop() {
+    public int pop() {
         if (isEmpty()) {
             error("Stack is Empty!!");
             System.exit(-1);
@@ -63,8 +63,8 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     // TODO 이 메소드에서 postFixArray를 int로 파싱하여 스택에 넣어야 함
-    public double Calculation(char[] postFixArray) {
-        int postFixLength = postFixArray.length;
+    public float Calculation(char[] postFixArray) {
+        int postFixLength = postFixArray.length, value;
         char ch;
         String opBuffer1, opBuffer2;
         int Operation1, Operation2;
@@ -73,9 +73,14 @@ public class getCalculationResult implements makeCalculationStack {
         StringBuilder op2 = new StringBuilder();
         for (int i = 0; i < postFixLength; i++) {
             ch = postFixArray[i];
+            // TODO op1 append 할때 Stack is Empty Error 발생!!
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
-                // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
-                push(ch);
+                value = ch-'0';
+                if(ch == ' '){
+                    push(ch);
+                }else {
+                    push(value);
+                }
             } else {           // 연산자이면 피연산자를 스택에서 제거
                 if (peek() == ' ') {
                     pop();              // 공백이 POP 됨
@@ -84,12 +89,10 @@ public class getCalculationResult implements makeCalculationStack {
                     }
                     pop();
                     // peek 값이 공백이 아니거나 스택이 비어있지 않다면
-                    // TODO : ArrayIndexOutOfBoundsException
                     while (peek() != ' ') {
                         op1.insert(0, pop());
                     }
                 }
-                // TODO : 연산 진행 시 Char -> Int 로 Parsing 필요
                 opBuffer1 = String.valueOf(op2);
                 opBuffer2 = String.valueOf(op1);
                 Operation1 = Integer.parseInt(opBuffer1);
@@ -106,6 +109,10 @@ public class getCalculationResult implements makeCalculationStack {
                         break;
                     case '/':
                         push(Operation1 / Operation2);
+                        break;
+                        // TODO : Layout Button 나머지 추가해라..
+                    case '%':
+                        push(Operation1 % Operation2);
                         break;
                 }
             }
