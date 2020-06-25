@@ -1,6 +1,6 @@
 package com.example.mobile_programming_term_project;
 
-public interface Stack {
+public interface makePostfixStack {
     boolean isEmpty();
     boolean isFull();
     void push (char item);

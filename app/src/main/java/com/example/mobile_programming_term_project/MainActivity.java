@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     private EditText editText;
-    public Button btn0_9[] = null;
+    public Button[] btn0_9 = null;
     public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
+
     public String operator = null;
     private String fValue = "";
     private boolean isInit = false;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btn_C = (Button) findViewById(R.id.btn_c);
         String buf = "Test String Code";
         // Final 선언을 해주어야 inner Class 접근가능
-        final StackDataType result = new StackDataType(STACK_MAX_SIZE);
+        final getPostFix result = new getPostFix(STACK_MAX_SIZE);
 
         // 계산식 지우기
         btn_C.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 char buf_2;
                 buf = result.infixToPostfix(PostFix);
                 editText.setText(String.valueOf(buf));
-                result.Calculation(buf);
+                //result.Calculation(buf);
             }
         });
     }

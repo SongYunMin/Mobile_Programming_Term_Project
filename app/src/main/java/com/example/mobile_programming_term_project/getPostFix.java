@@ -2,26 +2,20 @@ package com.example.mobile_programming_term_project;
 
 import android.util.Log;
 
-public class StackDataType implements Stack {
-    final public int MAX_STACK_SIZE = 100;
-    // private는 getter/setter의 존재 이유
+public class getPostFix implements makePostfixStack {
+    // private는 getter/setter 의 존재 이유
     private int top;
     private int stackSize;
     private char[] stackArr;
-    public char[] resultChar;
-    public char[] Operation1, Operation2;
+    private char[] resultChar;
 
     // 생성자 호출
-    public StackDataType(int stackSize) {
+    getPostFix(int stackSize) {
         top = -1;
         this.stackSize = stackSize;
         stackArr = new char[this.stackSize];
     }
 
-    //
-//    char error(char c){
-//        return c;
-//    }
     String error(String message) {
         Log.d("ERROR : ", message);
         return message;
@@ -46,17 +40,6 @@ public class StackDataType implements Stack {
             stackArr[++top] = item;
         }
     }
-//
-//    @Override
-//    public void push(String item) {
-//        char[] item_arr = item.toCharArray();
-//        if (isFull()) {
-//            Log.e("ERROR : ", "Stack Over Flow");
-//            System.exit(-1);
-//        } else {
-//            stackArr[++top] = item_arr;
-//        }
-//    }
 
     @Override
     public char pop() {
@@ -85,7 +68,7 @@ public class StackDataType implements Stack {
 
     }
 
-    void init_stack(StackDataType stack) {
+    void init_stack(getPostFix stack) {
         stack.top = -1;
     }
 
@@ -110,7 +93,7 @@ public class StackDataType implements Stack {
         int i = 0;
         char ch, top_op;
         int len = exp.length;
-        StackDataType stack = new StackDataType(stackSize);
+        getPostFix stack = new getPostFix(stackSize);
         StringBuilder result = new StringBuilder("");
 
         init_stack(stack);                           // 스택 초기화
@@ -161,60 +144,4 @@ public class StackDataType implements Stack {
         return resultChar;
     }
 
-    char Calculation(char[] resultChar) {
-        int Operation1, Operation2, emptyCount = 0;
-        String opBuffer1,opBuffer2;
-        int resultCharLen = resultChar.length;
-        int a = 0;
-        char ch;
-        // TODO : StringBUilder를 이용하여 두자리수 이상 후위표기 연산기능 구현
-        StringBuilder op1 = new StringBuilder("");
-        StringBuilder op2 = new StringBuilder("");
-
-
-        // 연산을 진행하는 Loop
-        for (int i = 0; i < resultCharLen; i++) {
-            ch = resultChar[i];
-            if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
-                // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
-                push(ch);
-            } else {           // 연산자이면 피연산자를 스택에서 제거
-                if(peek() == ' '){
-                    pop();              // 공백이 POP 됨
-                    while(peek() != ' ') {
-                        op2.insert(0, pop());
-                    }
-                    pop();
-                    // peek 값이 공백이 아니거나 스택이 비어있지 않다면
-                    // TODO : ArrayIndexOutOfBoundsException
-                    while(peek() != ' '){
-                        op1.insert(0, pop());
-                    }
-
-                }
-//                Operation2 = pop();             // Pop 된 연산자
-//                Operation1 = pop();             // Pop 된 연산자
-                // TODO : 연산 진행 시 Char -> Int 로 Parsing 필요
-                opBuffer1 = String.valueOf(op2);
-                opBuffer2 = String.valueOf(op1);
-                Operation1 = Integer.parseInt(opBuffer1);
-                Operation2 = Integer.parseInt(opBuffer2);
-//                switch (ch) {
-//                    case '+':
-//                        push((char) (Operation1 + Operation2));
-//                        break;
-//                    case '-':
-//                        push((char) (Operation1 - Operation2));
-//                        break;
-//                    case '*':
-//                        push((char) (Opera tion1 * Operation2));
-//                        break;
-//                    case '/':
-//                        push((char) (Operation1 / Operation2));
-//                        break;
-//                }
-            }
-        }
-        return pop();
-    }
 }
