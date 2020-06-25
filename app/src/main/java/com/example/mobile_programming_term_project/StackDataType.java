@@ -189,15 +189,13 @@ public class StackDataType implements Stack {
                 // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
                 push(ch);
             } else {           // 연산자이면 피연산자를 스택에서 제거
-                if (emptyCount != 2) {
-                    for (int j = 0; j < i; j++) {
-                        if(emptyCount == 0 && resultChar[j] != ' ') {
+                if (emptyCount != 2) {                              // 두개의 공백을 만나지 않았다면
+                    for (int j = 0; j < i; j++) {                   // 후위수식 제어변수 0부터
+                        // 첫번째 공백이고, 공백을 만났을 때
+                        if(emptyCount == 0 && peek() == ' ') {
                             op2.append(resultChar[j]);
-                            if(resultChar[j] == ' '){
-                                emptyCount++;
-                                continue;
-                            }
                         }
+                        // 두번째 공백이고, 공백을 만났을때
                         if(emptyCount == 1 && resultChar[j] != ' '){
                             op1.append(resultChar[j]);
                         }
