@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.btn_multi, R.id.btn_division, R.id.btn_XOR, R.id.btn_AND, R.id.btn_OR,
                 R.id.btn_NOT, R.id.btn_eq};
 
+        // TODO : 아.. 나머지연산 왜 까먹었지..?
+
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
         for (int i = 0; i < btn_id.length; i++) {
@@ -43,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         btn_C = (Button) findViewById(R.id.btn_c);
         String buf = "Test String Code";
         // Final 선언을 해주어야 inner Class 접근가능
-        final getPostFix result = new getPostFix(STACK_MAX_SIZE);
+        // 중위표기 -> 후위표기식 객체 선언
+        final getPostFix infixToPostFix = new getPostFix(STACK_MAX_SIZE);
+        // 후위표기식 계산 기능 객체 선언
+        final getCalculationResult calculationResult = new getCalculationResult(STACK_MAX_SIZE);
 
         // 계산식 지우기
         btn_C.setOnClickListener(new View.OnClickListener() {
@@ -53,18 +58,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // result
         btn_eq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String infix = editText.getText().toString();       // EditText에서 얻음
-                char[] PostFix = infix.toCharArray();               // String -> char[]
-                char[] buf;
-                char buf_2;
-                buf = result.infixToPostfix(PostFix);
-                editText.setText(String.valueOf(buf));
-                //result.Calculation(buf);
+                char[] POSTFIX;
+                POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
+                editText.setText(String.valueOf(POSTFIX));
+                calculationResult.Calculation(POSTFIX);
             }
         });
     }

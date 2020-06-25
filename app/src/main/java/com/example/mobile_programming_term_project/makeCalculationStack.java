@@ -4,6 +4,6 @@ public interface makeCalculationStack {
     boolean isEmpty();
     boolean isFull();
     void push(int item);
-    int pop();
+    double pop();
     int peek();
 }

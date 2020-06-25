@@ -1,60 +1,118 @@
 package com.example.mobile_programming_term_project;
 
-public class getCalculationResult implements makeCalculationStack{
-    private String postFix;
+import android.util.Log;
+
+public class getCalculationResult implements makeCalculationStack {
     private int stackSize;
     private int top;
     private int[] stackArr;
 
     // 생성자는 String 인자로 받아서 초기화 함
-    getCalculationResult(String postFix, int stackSize){
+    getCalculationResult(int stackSize) {
         top = -1;
-        this.postFix = postFix;
         this.stackSize = stackSize;
         stackArr = new int[this.stackSize];
     }
 
     // 후위 수식을 배열로 만드는 함수
-    public char[] getStringToCharArray(String postFix)
-    {
+    public char[] getStringToCharArray(String postFix) {
         return postFix.toCharArray();
     }
 
-
-    @Override
-    public boolean isEmpty()
-    {
-
-        return true;
+    private void error(String message) {
+        Log.d("ERROR : ", message);
     }
 
     @Override
-    public boolean isFull()
-    {
-
-        return true;
+    public boolean isEmpty() {
+        return (top == -1);
     }
 
     @Override
-    public void push(int item)
-    {
-
+    public boolean isFull() {
+        return (top == stackSize - 1);
     }
 
     @Override
-    public int pop()
-    {
+    public void push(int item) {
+        if (isFull()) {
+            error("Stack is Full!!");
+            System.exit(-1);
+        } else {
+            stackArr[++top] = item;
+        }
+    }
 
-        return 1;
+    @Override
+    public double pop() {
+        if (isEmpty()) {
+            error("Stack is Empty!!");
+            System.exit(-1);
+        }
+        return stackArr[top--];
     }
 
 
     @Override
-    public int peek()
-    {
-
-        return 1;
+    public int peek() {
+        if (isEmpty()) {
+            error("Stack is Empty!!");
+            System.exit(-1);
+        }
+        return stackArr[top];
     }
+
+    // TODO 이 메소드에서 postFixArray를 int로 파싱하여 스택에 넣어야 함
+    public double Calculation(char[] postFixArray) {
+        int postFixLength = postFixArray.length;
+        char ch;
+        String opBuffer1, opBuffer2;
+        int Operation1, Operation2;
+        // int로 파싱가능 (아래 Calculation 주석 참조)
+        StringBuilder op1 = new StringBuilder();
+        StringBuilder op2 = new StringBuilder();
+        for (int i = 0; i < postFixLength; i++) {
+            ch = postFixArray[i];
+            if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
+                // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
+                push(ch);
+            } else {           // 연산자이면 피연산자를 스택에서 제거
+                if (peek() == ' ') {
+                    pop();              // 공백이 POP 됨
+                    while (peek() != ' ') {
+                        op2.insert(0, pop());
+                    }
+                    pop();
+                    // peek 값이 공백이 아니거나 스택이 비어있지 않다면
+                    // TODO : ArrayIndexOutOfBoundsException
+                    while (peek() != ' ') {
+                        op1.insert(0, pop());
+                    }
+                }
+                // TODO : 연산 진행 시 Char -> Int 로 Parsing 필요
+                opBuffer1 = String.valueOf(op2);
+                opBuffer2 = String.valueOf(op1);
+                Operation1 = Integer.parseInt(opBuffer1);
+                Operation2 = Integer.parseInt(opBuffer2);
+                switch (ch) {
+                    case '+':
+                        push(Operation1 + Operation2);
+                        break;
+                    case '-':
+                        push(Operation1 - Operation2);
+                        break;
+                    case '*':
+                        push(Operation1 * Operation2);
+                        break;
+                    case '/':
+                        push(Operation1 / Operation2);
+                        break;
+                }
+            }
+        }
+        return pop();
+    }
+}
 
 //    char Calculation(char[] resultChar) {
 //        int Operation1, Operation2, emptyCount = 0;
@@ -65,8 +123,6 @@ public class getCalculationResult implements makeCalculationStack{
 //        // TODO : StringBUilder를 이용하여 두자리수 이상 후위표기 연산기능 구현
 //        StringBuilder op1 = new StringBuilder("");
 //        StringBuilder op2 = new StringBuilder("");
-//
-//
 //        // 연산을 진행하는 Loop
 //        for (int i = 0; i < resultCharLen; i++) {
 //            ch = resultChar[i];
@@ -112,7 +168,3 @@ public class getCalculationResult implements makeCalculationStack{
 //        }
 //        return pop();
 //    }
-
-
-
-}

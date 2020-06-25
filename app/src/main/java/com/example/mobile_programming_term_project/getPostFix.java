@@ -16,9 +16,8 @@ public class getPostFix implements makePostfixStack {
         stackArr = new char[this.stackSize];
     }
 
-    String error(String message) {
+    private void error(String message) {
         Log.d("ERROR : ", message);
-        return message;
     }
 
     @Override      // 빈 Stack인지 확인 함
@@ -68,12 +67,12 @@ public class getPostFix implements makePostfixStack {
 
     }
 
-    void init_stack(getPostFix stack) {
+    private void init_stack(getPostFix stack) {
         stack.top = -1;
     }
 
     // 우선순위 반환
-    int returnOfPriority(char op) {
+    private int returnOfPriority(char op) {
         switch (op) {
             case '(':
             case ')':
