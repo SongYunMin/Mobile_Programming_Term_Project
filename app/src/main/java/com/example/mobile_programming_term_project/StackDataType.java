@@ -9,6 +9,7 @@ public class StackDataType implements Stack {
     private int stackSize;
     private char[] stackArr;
     public char[] resultChar;
+    public char[] Operation1, Operation2;
 
     // 생성자 호출
     public StackDataType(int stackSize) {
@@ -72,7 +73,7 @@ public class StackDataType implements Stack {
     public char peek() {
         if (isEmpty()) {
             error("Stack is Empty!!!");
-            System.exit(-1);
+            // System.exit(-1);
         }
         Log.i("Peek : ", "");
         return stackArr[top];
@@ -103,18 +104,6 @@ public class StackDataType implements Stack {
         }
         return -1;
     }
-
-//    char[] infixToPostfix(char[] exp) {
-//        int i = 0;
-//        char ch, top_op;
-//        int len = exp.length;
-//        StackDataType stack = new StackDataType(stackSize);
-//        StringBuilder result = new StringBuilder("");
-//
-//        init_stack(stack);
-
-//        return result;
-//    }
 
     // 중위수식 -> 후위수식 변환
     char[] infixToPostfix(char[] exp) {
@@ -174,6 +163,7 @@ public class StackDataType implements Stack {
 
     char Calculation(char[] resultChar) {
         int Operation1, Operation2, emptyCount = 0;
+        String opBuffer1,opBuffer2;
         int resultCharLen = resultChar.length;
         int a = 0;
         char ch;
@@ -189,23 +179,26 @@ public class StackDataType implements Stack {
                 // TODO : 공백을 이용하여 두자리수 이상 연산자를 붙여야 함
                 push(ch);
             } else {           // 연산자이면 피연산자를 스택에서 제거
-                if (emptyCount != 2) {                              // 두개의 공백을 만나지 않았다면
-                    for (int j = 0; j < i; j++) {                   // 후위수식 제어변수 0부터
-                        // 첫번째 공백이고, 공백을 만났을 때
-                        if(emptyCount == 0 && peek() == ' ') {
-                            op2.append(resultChar[j]);
-                        }
-                        // 두번째 공백이고, 공백을 만났을때
-                        if(emptyCount == 1 && resultChar[j] != ' '){
-                            op1.append(resultChar[j]);
-                        }
+                if(peek() == ' '){
+                    pop();              // 공백이 POP 됨
+                    while(peek() != ' ') {
+                        op2.insert(0, pop());
                     }
+                    pop();
+                    // peek 값이 공백이 아니거나 스택이 비어있지 않다면
+                    // TODO : ArrayIndexOutOfBoundsException
+                    while(peek() != ' '){
+                        op1.insert(0, pop());
+                    }
+
                 }
-
-                Operation2 = pop();             // Pop 된 연산자
-                Operation1 = pop();             // Pop 된 연산자
-
+//                Operation2 = pop();             // Pop 된 연산자
+//                Operation1 = pop();             // Pop 된 연산자
                 // TODO : 연산 진행 시 Char -> Int 로 Parsing 필요
+                opBuffer1 = String.valueOf(op2);
+                opBuffer2 = String.valueOf(op1);
+                Operation1 = Integer.parseInt(opBuffer1);
+                Operation2 = Integer.parseInt(opBuffer2);
 //                switch (ch) {
 //                    case '+':
 //                        push((char) (Operation1 + Operation2));
