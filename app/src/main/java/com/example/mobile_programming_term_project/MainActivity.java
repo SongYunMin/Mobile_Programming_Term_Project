@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 buf.insert(0,' ');
                 str = String.valueOf(buf);
                 POSTFIX = str.toCharArray();
-                editText.setText(String.valueOf(POSTFIX));
                 result = calculationResult.Calculation(POSTFIX);
                 editText.setText(String.valueOf(result));
             }

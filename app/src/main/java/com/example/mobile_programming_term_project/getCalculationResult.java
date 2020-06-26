@@ -5,13 +5,13 @@ import android.util.Log;
 public class getCalculationResult implements makeCalculationStack {
     private int stackSize;
     private int top;
-    private int[] stackArr;
+    private float[] stackArr;
 
     // 생성자는 String 인자로 받아서 초기화 함
     getCalculationResult(int stackSize) {
         top = -1;
         this.stackSize = stackSize;
-        stackArr = new int[this.stackSize];
+        stackArr = new float[this.stackSize];
     }
 
 //    // 후위 수식을 배열로 만드는 함수
@@ -34,7 +34,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public void push(int item) {
+    public void push(float item) {
         if (isFull()) {
             error("Stack is Full!!");
             System.exit(-1);
@@ -44,7 +44,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public int pop() {
+    public float pop() {
         if (isEmpty()) {
             error("Stack is Empty!!");
             System.exit(-1);
@@ -54,7 +54,7 @@ public class getCalculationResult implements makeCalculationStack {
 
 
     @Override
-    public int peek() {
+    public float peek() {
         if (isEmpty()) {
             error("Stack is Empty!!");
             //System.exit(-1);
@@ -62,18 +62,17 @@ public class getCalculationResult implements makeCalculationStack {
         return stackArr[top];
     }
 
-    // TODO 이 메소드에서 postFixArray를 int로 파싱하여 스택에 넣어야 함
     public float Calculation(char[] postFixArray) {
         int postFixLength = postFixArray.length, value;
         char ch;
         String opBuffer1, opBuffer2;
-        int Operation1, Operation2;
+        float Operation1, Operation2;
         // int로 파싱가능 (아래 Calculation 주석 참조)
         StringBuilder op1 = new StringBuilder();
         StringBuilder op2 = new StringBuilder();
+        // TODO '(' ')' 처리문제
         for (int i = 0; i < postFixLength; i++) {
             ch = postFixArray[i];
-            // TODO op1 append 할때 Stack is Empty Error 발생!!
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
                 value = ch-'0';
                 if(ch == ' '){
@@ -93,10 +92,10 @@ public class getCalculationResult implements makeCalculationStack {
                         op1.insert(0, pop());
                     }
                 }
-                opBuffer1 = String.valueOf(op2);
-                opBuffer2 = String.valueOf(op1);
-                Operation1 = Integer.parseInt(opBuffer1);
-                Operation2 = Integer.parseInt(opBuffer2);
+                opBuffer1 = String.valueOf(op1);
+                opBuffer2 = String.valueOf(op2);
+                Operation1 = Float.parseFloat(opBuffer1);
+                Operation2 = Float.parseFloat(opBuffer2);
                 switch (ch) {
                     case '+':
                         push(Operation1 + Operation2);
