@@ -102,7 +102,7 @@ public class getPostFix implements makePostfixStack {
                 case '+':
                 case '-':
                 case '*':
-                case '/':
+                case '/':                           // 연산자라면?
                     while (!isEmpty() && (returnOfPriority(ch) <=
                             returnOfPriority(peek()))) {
                         result.append(pop());

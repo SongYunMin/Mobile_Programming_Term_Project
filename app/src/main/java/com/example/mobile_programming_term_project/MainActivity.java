@@ -65,10 +65,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 float result;
                 String infix = editText.getText().toString();       // EditText에서 얻음
+                String str;
+                StringBuilder buf=new StringBuilder();
                 char[] POSTFIX;
                 POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
+                buf.append(POSTFIX);
+                buf.insert(0,' ');
+                str = String.valueOf(buf);
+                POSTFIX = str.toCharArray();
                 editText.setText(String.valueOf(POSTFIX));
                 result = calculationResult.Calculation(POSTFIX);
+                editText.setText(String.valueOf(result));
             }
         });
     }

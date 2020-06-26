@@ -14,10 +14,10 @@ public class getCalculationResult implements makeCalculationStack {
         stackArr = new int[this.stackSize];
     }
 
-    // 후위 수식을 배열로 만드는 함수
-    public char[] getStringToCharArray(String postFix) {
-        return postFix.toCharArray();
-    }
+//    // 후위 수식을 배열로 만드는 함수
+//    public char[] getStringToCharArray(String postFix) {
+//        return postFix.toCharArray();
+//    }
 
     private void error(String message) {
         Log.d("ERROR : ", message);
@@ -57,7 +57,7 @@ public class getCalculationResult implements makeCalculationStack {
     public int peek() {
         if (isEmpty()) {
             error("Stack is Empty!!");
-            System.exit(-1);
+            //System.exit(-1);
         }
         return stackArr[top];
     }
@@ -87,7 +87,7 @@ public class getCalculationResult implements makeCalculationStack {
                     while (peek() != ' ') {
                         op2.insert(0, pop());
                     }
-                    pop();
+                    pop();              // 공백이 POP 됨
                     // peek 값이 공백이 아니거나 스택이 비어있지 않다면
                     while (peek() != ' ') {
                         op1.insert(0, pop());
@@ -110,11 +110,13 @@ public class getCalculationResult implements makeCalculationStack {
                     case '/':
                         push(Operation1 / Operation2);
                         break;
-                        // TODO : Layout Button 나머지 추가해라..
+                        // TODO : Layout Button 나머지(%) 추가해라..
                     case '%':
                         push(Operation1 % Operation2);
                         break;
                 }
+                op2.delete(0,op2.length());
+                op1.delete(0,op1.length());
             }
         }
         return pop();
