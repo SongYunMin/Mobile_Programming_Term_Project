@@ -30,6 +30,7 @@ public class getPostFix implements makePostfixStack {
         return (top == stackSize - 1);
     }
 
+    // Stack Push Method
     @Override
     public void push(char item) {
         if (isFull()) {
@@ -40,6 +41,7 @@ public class getPostFix implements makePostfixStack {
         }
     }
 
+    // Stack Pop Method
     @Override
     public char pop() {
         if (isEmpty()) {
@@ -51,6 +53,7 @@ public class getPostFix implements makePostfixStack {
         return stackArr[top--];
     }
 
+    // Stack Peek Method
     @Override
     public char peek() {
         if (isEmpty()) {
@@ -62,16 +65,12 @@ public class getPostFix implements makePostfixStack {
 
     }
 
-    @Override
-    public void clear() {
-
-    }
-
+    // 스택 초기화 메소드
     private void init_stack(getPostFix stack) {
         stack.top = -1;
     }
 
-    // 우선순위 반환
+    // 우선순위 반환 메소드
     private int returnOfPriority(char op) {
         switch (op) {
             case '(':
@@ -87,7 +86,7 @@ public class getPostFix implements makePostfixStack {
         return -1;
     }
 
-    // 중위수식 -> 후위수식 변환
+    // 중위수식 -> 후위수식 변환 메소드
     char[] infixToPostfix(char[] exp) {
         int i = 0;
         char ch, top_op;

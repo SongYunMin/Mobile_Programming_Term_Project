@@ -34,7 +34,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public void push(float item) {
+    public void push(int item) {
         if (isFull()) {
             error("Stack is Full!!");
             System.exit(-1);
@@ -52,7 +52,6 @@ public class getCalculationResult implements makeCalculationStack {
         return stackArr[top--];
     }
 
-
     @Override
     public float peek() {
         if (isEmpty()) {
@@ -66,14 +65,14 @@ public class getCalculationResult implements makeCalculationStack {
         int postFixLength = postFixArray.length, value;
         char ch;
         String opBuffer1, opBuffer2;
-        float Operation1, Operation2;
+        int Operation1, Operation2;
         // int로 파싱가능 (아래 Calculation 주석 참조)
         StringBuilder op1 = new StringBuilder();
         StringBuilder op2 = new StringBuilder();
         // TODO '(' ')' 처리문제
         for (int i = 0; i < postFixLength; i++) {
             ch = postFixArray[i];
-            if (ch != '+' && ch != '-' && ch != '*' && ch != '/') {
+            if (ch != '+' && ch != '-' && ch != '*' && ch != '/' && ch != '%') {
                 value = ch-'0';
                 if(ch == ' '){
                     push(ch);
@@ -94,8 +93,8 @@ public class getCalculationResult implements makeCalculationStack {
                 }
                 opBuffer1 = String.valueOf(op1);
                 opBuffer2 = String.valueOf(op2);
-                Operation1 = Float.parseFloat(opBuffer1);
-                Operation2 = Float.parseFloat(opBuffer2);
+                Operation1 = Integer.parseInt(opBuffer1);
+                Operation2 = Integer.parseInt(opBuffer2);
                 switch (ch) {
                     case '+':
                         push(Operation1 + Operation2);

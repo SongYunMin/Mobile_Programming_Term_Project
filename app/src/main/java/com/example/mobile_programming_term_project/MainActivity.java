@@ -13,9 +13,6 @@ public class MainActivity extends AppCompatActivity {
     public Button[] btn0_9 = null;
     public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
 
-    public String operator = null;
-    private String fValue = "";
-    private boolean isInit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 String str;
                 StringBuilder buf=new StringBuilder();
-                // 여기 몬가 이상한디.. 
+                // 여기 몬가 이상한디..
                 char[] POSTFIX;
                 POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
                 buf.append(POSTFIX);

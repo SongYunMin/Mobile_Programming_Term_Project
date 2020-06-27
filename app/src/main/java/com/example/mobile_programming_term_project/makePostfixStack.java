@@ -5,6 +5,5 @@ public interface makePostfixStack {
     boolean isFull();
     void push (char item);
     char pop();
-    void clear();
     char peek();
 }
