@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     public String operator = null;
     private String fValue = "";
     private boolean isInit = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.btn_NOT, R.id.btn_eq};
 
         // TODO : 아.. 나머지연산 왜 까먹었지..?
-
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
         // IDE 에서 for- each 추천해서 쓰긴 쓴다만,,,
@@ -67,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 String str;
                 StringBuilder buf=new StringBuilder();
+                // 여기 몬가 이상한디.. 
                 char[] POSTFIX;
                 POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
                 buf.append(POSTFIX);

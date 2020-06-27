@@ -3,7 +3,7 @@ package com.example.mobile_programming_term_project;
 import android.util.Log;
 
 public class getPostFix implements makePostfixStack {
-    // private는 getter/setter 의 존재 이유
+    // private 는 getter/setter 의 존재 이유
     private int top;
     private int stackSize;
     private char[] stackArr;
