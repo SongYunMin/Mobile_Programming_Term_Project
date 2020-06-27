@@ -9,6 +9,11 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     private EditText editText;
@@ -18,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         // Status Bar 제거
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -76,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 POSTFIX = str.toCharArray();
                 result = calculationResult.Calculation(POSTFIX);
                 editText.setText(String.valueOf(result));
+                // TODO : 파일 입출력 시 수식과 결과가 같이 나오도록 설계 해야 함
+                try {
+                    BufferedWriter fileWriter = new BufferedWriter(
+                            new FileWriter(getFilesDir() + "data.txt",true));
+                    fileWriter.write(String.valueOf(result));
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

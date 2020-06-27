@@ -71,7 +71,6 @@ public class getPostFix implements makePostfixStack {
     }
 
     // 우선순위 반환 메소드
-    // TODO : 비트연산자 우선순위 추가
     private int returnOfPriority(char op) {
         switch (op) {
             case '(':

@@ -110,7 +110,6 @@ public class getCalculationResult implements makeCalculationStack {
                     case '/':
                         push(Operation1 / Operation2);
                         break;
-                    // TODO : Layout Button 나머지(%) 추가해라..
                     case '%':
                         push(Operation1 % Operation2);
                         break;
