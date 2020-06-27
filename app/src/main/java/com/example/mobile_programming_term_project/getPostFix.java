@@ -158,5 +158,4 @@ public class getPostFix implements makePostfixStack {
         }
         return resultChar;
     }
-
 }

@@ -73,7 +73,8 @@ public class getCalculationResult implements makeCalculationStack {
         StringBuilder op2 = new StringBuilder();
         for (int i = 0; i < postFixLength; i++) {
             ch = postFixArray[i];
-            if (ch != '+' && ch != '-' && ch != '*' && ch != '/' && ch != '%') {
+            if (ch != '+' && ch != '-' && ch != '*' && ch != '/' && ch != '%'
+                    && ch != '^' && ch != '&' && ch != '|') {
                 value = ch - '0';
                 if (ch == ' ') {
                     push(ch);
@@ -113,6 +114,19 @@ public class getCalculationResult implements makeCalculationStack {
                     case '%':
                         push(Operation1 % Operation2);
                         break;
+                    case '^':
+                        push(Operation1 ^ Operation2);
+                        break;
+                    case '&':
+                        push(Operation1 & Operation2);
+                        break;
+                    case '|':
+                        push(Operation1 | Operation2);
+                        break;
+                    // NOT은 단항??
+//                    case '~':
+//                        push(Operation1  Operation2);
+//                        break;
                 }
                 op2.delete(0, op2.length());
                 op1.delete(0, op1.length());
