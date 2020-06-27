@@ -81,6 +81,7 @@ public class getPostFix implements makePostfixStack {
                 return 1;
             case '*':
             case '/':
+            case '%':
                 return 2;
         }
         return -1;
@@ -102,6 +103,7 @@ public class getPostFix implements makePostfixStack {
                 case '-':
                 case '*':
                 case '/':                           // 연산자라면?
+                case '%':
                     while (!isEmpty() && (returnOfPriority(ch) <=
                             returnOfPriority(peek()))) {
                         result.append(pop());
@@ -127,7 +129,7 @@ public class getPostFix implements makePostfixStack {
                         break;
                     }
                     if (exp[i + 1] == '+' || exp[i + 1] == '-' ||
-                            exp[i + 1] == '*' || exp[i + 1] == '/') {
+                            exp[i + 1] == '*' || exp[i + 1] == '/' || exp[i + 1] == '%') {
                         result.append(' ');
                     }
                     break;

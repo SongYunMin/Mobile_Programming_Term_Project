@@ -5,13 +5,13 @@ import android.util.Log;
 public class getCalculationResult implements makeCalculationStack {
     private int stackSize;
     private int top;
-    private float[] stackArr;
+    private int[] stackArr;
 
     // 생성자는 String 인자로 받아서 초기화 함
     getCalculationResult(int stackSize) {
         top = -1;
         this.stackSize = stackSize;
-        stackArr = new float[this.stackSize];
+        stackArr = new int[this.stackSize];
     }
 
 //    // 후위 수식을 배열로 만드는 함수
@@ -44,7 +44,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public float pop() {
+    public int pop() {
         if (isEmpty()) {
             error("Stack is Empty!!");
             System.exit(-1);
@@ -53,7 +53,7 @@ public class getCalculationResult implements makeCalculationStack {
     }
 
     @Override
-    public float peek() {
+    public int peek() {
         if (isEmpty()) {
             error("Stack is Empty!!");
             System.exit(-1);
@@ -61,6 +61,8 @@ public class getCalculationResult implements makeCalculationStack {
         return stackArr[top];
     }
 
+    // TODO :  Return Float Type 으로 진행 할 시, 숫자 붙이는 과정에서 소수점 까지 같이 붙는 문제
+    // TODO :  괄호 '(', ')' 처리 문제 있음
     public float Calculation(char[] postFixArray) {
         int postFixLength = postFixArray.length, value;
         char ch;
@@ -69,14 +71,13 @@ public class getCalculationResult implements makeCalculationStack {
         // int로 파싱가능 (아래 Calculation 주석 참조)
         StringBuilder op1 = new StringBuilder();
         StringBuilder op2 = new StringBuilder();
-        // TODO '(' ')' 처리문제
         for (int i = 0; i < postFixLength; i++) {
             ch = postFixArray[i];
             if (ch != '+' && ch != '-' && ch != '*' && ch != '/' && ch != '%') {
-                value = ch-'0';
-                if(ch == ' '){
+                value = ch - '0';
+                if (ch == ' ') {
                     push(ch);
-                }else {
+                } else {
                     push(value);
                 }
             } else {           // 연산자이면 피연산자를 스택에서 제거
@@ -108,13 +109,13 @@ public class getCalculationResult implements makeCalculationStack {
                     case '/':
                         push(Operation1 / Operation2);
                         break;
-                        // TODO : Layout Button 나머지(%) 추가해라..
+                    // TODO : Layout Button 나머지(%) 추가해라..
                     case '%':
                         push(Operation1 % Operation2);
                         break;
                 }
-                op2.delete(0,op2.length());
-                op1.delete(0,op1.length());
+                op2.delete(0, op2.length());
+                op1.delete(0, op1.length());
             }
         }
         return pop();

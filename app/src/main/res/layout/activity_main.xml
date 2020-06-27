@@ -162,7 +162,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -192,10 +191,50 @@
 
         <!-- XOR 버튼 -->
         <Button
+            android:id="@+id/btn_mod"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="%" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <!-- AND 버튼 -->
+        <Button
             android:id="@+id/btn_XOR"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="XOR" />
+
+        <!-- OR 버튼 -->
+        <Button
+            android:id="@+id/btn_n1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="n1" />
+
+        <!-- NOT 버튼 -->
+        <Button
+            android:id="@+id/btn_n2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="n2" />
+
+        <!-- XOR 버튼 -->
+        <Button
+            android:id="@+id/btn_n3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="n3" />
     </LinearLayout>
 </LinearLayout>

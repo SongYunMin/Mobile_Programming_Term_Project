@@ -3,6 +3,7 @@ package com.example.mobile_programming_term_project;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,13 +18,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn0_9 = new Button[14];
+
+        // Status Bar 제거
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+
+        btn0_9 = new Button[15];
         int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
                 R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9, R.id.btn_add, R.id.btn_sub,
                 R.id.btn_multi, R.id.btn_division, R.id.btn_XOR, R.id.btn_AND, R.id.btn_OR,
-                R.id.btn_NOT, R.id.btn_eq};
+                R.id.btn_NOT, R.id.btn_eq ,R.id.btn_mod};
 
-        // TODO : 아.. 나머지연산 왜 까먹었지..?
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
         // IDE 에서 for- each 추천해서 쓰긴 쓴다만,,,
