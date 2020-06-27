@@ -71,18 +71,27 @@ public class getPostFix implements makePostfixStack {
     }
 
     // 우선순위 반환 메소드
+    // TODO : 비트연산자 우선순위 추가
     private int returnOfPriority(char op) {
         switch (op) {
             case '(':
             case ')':
                 return 0;
+            case '|':
+                return 1;
+            case '^':
+                return 2;
+            case '&':
+                return 3;
             case '+':
             case '-':
-                return 1;
+                return 4;
             case '*':
             case '/':
             case '%':
-                return 2;
+                return 5;
+            case '~':
+                return 6;
         }
         return -1;
     }
@@ -104,6 +113,10 @@ public class getPostFix implements makePostfixStack {
                 case '*':
                 case '/':
                 case '%':                           // 연산자라면?
+                case '^':
+                case '&':
+                case '|':
+                case '~':
                     while (!isEmpty() && (returnOfPriority(ch) <=
                             returnOfPriority(peek()))) {
                         result.append(pop());
@@ -128,8 +141,10 @@ public class getPostFix implements makePostfixStack {
                     if (i == exp.length - 1) {
                         break;
                     }
-                    if (exp[i + 1] == '+' || exp[i + 1] == '-' ||
-                            exp[i + 1] == '*' || exp[i + 1] == '/' || exp[i + 1] == '%') {
+
+                    if (exp[i + 1] == '+' || exp[i + 1] == '-' || exp[i + 1] == '*'
+                            || exp[i + 1] == '/' || exp[i + 1] == '%' || exp[i + 1] == '^'
+                            || exp[i + 1] == '&' || exp[i + 1] == '|' || exp[i + 1] == '~') {
                         result.append(' ');
                     }
                     break;
