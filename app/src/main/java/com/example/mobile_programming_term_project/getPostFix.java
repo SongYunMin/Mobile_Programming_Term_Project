@@ -102,8 +102,8 @@ public class getPostFix implements makePostfixStack {
                 case '+':
                 case '-':
                 case '*':
-                case '/':                           // 연산자라면?
-                case '%':
+                case '/':
+                case '%':                           // 연산자라면?
                     while (!isEmpty() && (returnOfPriority(ch) <=
                             returnOfPriority(peek()))) {
                         result.append(pop());
@@ -123,7 +123,7 @@ public class getPostFix implements makePostfixStack {
                         top_op = pop();
                     }
                     break;
-                default:                            // 피연산자 라면?
+                default:                            // 피연산자라면?
                     result.append(ch);
                     if (i == exp.length - 1) {
                         break;

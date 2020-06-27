@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     private EditText editText;
-    public Button[] btn0_9 = null;
+    public Button[] buttons = null;
     public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
 
     @Override
@@ -24,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        btn0_9 = new Button[15];
+        buttons = new Button[16];
         int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
                 R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9, R.id.btn_add, R.id.btn_sub,
-                R.id.btn_multi, R.id.btn_division, R.id.btn_XOR, R.id.btn_AND, R.id.btn_OR,
-                R.id.btn_NOT, R.id.btn_eq ,R.id.btn_mod};
+                R.id.btn_multi, R.id.btn_division, R.id.btn_eq, R.id.btn_mod};
 
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btn_eq = (Button) findViewById(R.id.btn_eq);
         btn_C = (Button) findViewById(R.id.btn_c);
         String buf = "Test String Code";
+
         // Final 선언을 해주어야 inner Class 접근가능
         // 중위표기 -> 후위표기식 객체 선언
         final getPostFix infixToPostFix = new getPostFix(STACK_MAX_SIZE);
@@ -65,16 +66,50 @@ public class MainActivity extends AppCompatActivity {
                 float result;
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 String str;
-                StringBuilder buf=new StringBuilder();
+                StringBuilder buf = new StringBuilder();
                 // 여기 몬가 이상한디..
                 char[] POSTFIX;
                 POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
                 buf.append(POSTFIX);
-                buf.insert(0,' ');
+                buf.insert(0, ' ');
                 str = String.valueOf(buf);
                 POSTFIX = str.toCharArray();
                 result = calculationResult.Calculation(POSTFIX);
                 editText.setText(String.valueOf(result));
+            }
+        });
+
+
+        // 비트 연산자들의 Click Listener
+        btn_XOR.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '^');
+            }
+        });
+
+        btn_AND.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '&');
+            }
+        });
+
+        btn_OR.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '|');
+            }
+        });
+
+        btn_NOT.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '~');
             }
         });
     }
