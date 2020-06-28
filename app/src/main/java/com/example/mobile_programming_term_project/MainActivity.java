@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        final StringBuilder fileResult = new StringBuilder("");     // 파일 입출력 될 변수
         buttons = new Button[16];
         int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
                 R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9, R.id.btn_add, R.id.btn_sub,
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 float result;
                 String infix = editText.getText().toString();       // EditText에서 얻음
+                fileResult.append(editText.getText().toString());   // 먼저 계산식을 붙임
                 String str;
                 StringBuilder buf = new StringBuilder();
                 // 여기 몬가 이상한디..
@@ -79,18 +81,20 @@ public class MainActivity extends AppCompatActivity {
                 POSTFIX = str.toCharArray();
                 result = calculationResult.Calculation(POSTFIX);
                 editText.setText(String.valueOf(result));
-                // TODO : 파일 입출력 시 수식과 결과가 같이 나오도록 설계 해야 함
+                fileResult.append(" = " + String.valueOf(result + '\n'));
+
+                // 파일 입출력 ex) 12*36/12 = 36.0
                 try {
                     BufferedWriter fileWriter = new BufferedWriter(
-                            new FileWriter(getFilesDir() + "data.txt",true));
-                    fileWriter.write(String.valueOf(result));
+                            new FileWriter(getFilesDir() + "data.txt", true));
+                    fileWriter.write(String.valueOf(fileResult));
+                    fileResult.delete(0, fileResult.length());
                     fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-
 
         // 비트 연산자들의 Click Listener
         btn_XOR.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // 버튼들의 Click Listener
     Button.OnClickListener mClickListener = new View.OnClickListener() {
         @SuppressLint("SetTextI18n")
         @Override
