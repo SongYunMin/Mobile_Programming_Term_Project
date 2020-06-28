@@ -3,6 +3,7 @@ package com.example.mobile_programming_term_project;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,10 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.edit);
         // 버튼들의 ID 받아옴
-        // IDE 에서 for- each 추천해서 쓰긴 쓴다만,,,
-        for (int value : btn_id) {
-            findViewById(value).setOnClickListener(mClickListener);
-        }
+        for (int value : btn_id) findViewById(value).setOnClickListener(mClickListener);
+
         // 비트 연산자
         btn_XOR = (Button) findViewById(R.id.btn_XOR);
         btn_AND = (Button) findViewById(R.id.btn_AND);
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         final getCalculationResult calculationResult = new getCalculationResult(STACK_MAX_SIZE);
 
         // 계산식 지우기
-        btn_C.setOnClickListener(new View.OnClickListener() {
+        btn_C.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editText.setText(null);
@@ -64,25 +63,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // result
-        btn_eq.setOnClickListener(new View.OnClickListener() {
+        btn_eq.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                float result;
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 fileResult.append(editText.getText().toString());   // 먼저 계산식을 붙임
-                String str;
-                StringBuilder buf = new StringBuilder();
-                // 여기 몬가 이상한디..
-                char[] POSTFIX;
-                POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
-                buf.append(POSTFIX);
-                buf.insert(0, ' ');
-                str = String.valueOf(buf);
-                POSTFIX = str.toCharArray();
-                result = calculationResult.Calculation(POSTFIX);
-                editText.setText(String.valueOf(result));
-                fileResult.append(" = " + String.valueOf(result + '\n'));
+                StringBuilder buf = new StringBuilder();            // 버퍼 필요
 
+                // 후위표기 메소드 return 값 받음
+                char[] POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
+                buf.append(POSTFIX).insert(0, ' ');     // 끝을 알리기 위한 공백 추가
+                String str = String.valueOf(buf);                    // 버퍼를 스트링으로 변환
+                POSTFIX = str.toCharArray();                         // 배열로 변환
+                // 변환된 값을 후위표기 계산 메소드로 전달 후 return 값 받음
+                float result = calculationResult.Calculation(POSTFIX);
+                editText.setText(String.valueOf(result));           // 결과 editText 로 출력
+                // 계산결과를 파일로 출력할 변수에 이어 붙임
+                fileResult.append(" = ").append(String.valueOf(result + '\n'));
                 // 파일 입출력 ex) 12*36/12 = 36.0
                 try {
                     BufferedWriter fileWriter = new BufferedWriter(
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 비트 연산자들의 Click Listener
-        btn_XOR.setOnClickListener(new View.OnClickListener() {
+        btn_XOR.setOnClickListener(new OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_AND.setOnClickListener(new View.OnClickListener() {
+        btn_AND.setOnClickListener(new OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_OR.setOnClickListener(new View.OnClickListener() {
+        btn_OR.setOnClickListener(new OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_NOT.setOnClickListener(new View.OnClickListener() {
+        btn_NOT.setOnClickListener(new OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -131,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 버튼들의 Click Listener
-    Button.OnClickListener mClickListener = new View.OnClickListener() {
+    OnClickListener mClickListener = new OnClickListener() {
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View v) {
