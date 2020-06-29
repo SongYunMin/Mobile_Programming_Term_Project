@@ -1,6 +1,7 @@
 package com.example.mobile_programming_term_project;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,16 +25,17 @@ import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
+    int equalClickNumber = 0;
     private EditText editText;
     public Button[] buttons = null;
     public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
     public Button storage, history;
+    // 연결리스트를 이용한 큐 생성
+    static Queue<String> resultQueue = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 연결리스트를 이용한 큐 생성
-        final Queue<String> resultQueue;
         // 히스토리 기능을 위한 연결리스트 생성
         final LinkedList<String> historyList = new LinkedList<>();
         // Status Bar 제거
@@ -50,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         storage = findViewById(R.id.memory_btn);            // 파일 수식 입력 버튼
         // 버튼들의 ID 받아옴
         for (int value : btn_id) findViewById(value).setOnClickListener(mClickListener);
-
         // 비트 연산자
         btn_XOR = (Button) findViewById(R.id.btn_XOR);
         btn_AND = (Button) findViewById(R.id.btn_AND);
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         final getPostFix infixToPostFix = new getPostFix(STACK_MAX_SIZE);
         // 후위표기식 계산 기능 객체 선언
         final getCalculationResult calculationResult = new getCalculationResult(STACK_MAX_SIZE);
-
         // 계산식 지우기
         btn_C.setOnClickListener(new OnClickListener() {
             @Override
@@ -72,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         // '=' 를 누를때 발생하는 이벤트
-        resultQueue = new LinkedList<String>();
         btn_eq.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                equalClickNumber++;
                 final StringBuilder fileResult = new StringBuilder("");     // 파일 입출력 될 변수
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 fileResult.append(editText.getText().toString());   // 먼저 계산식을 붙임
@@ -95,17 +98,17 @@ public class MainActivity extends AppCompatActivity {
                 // 파일 입출력 ex) 12*36/12 = 36.0
                 try {
                     BufferedWriter fileWriter = new BufferedWriter(
-                            new FileWriter(getFilesDir() + "data.txt", true));
+                            new FileWriter(getFilesDir() + "data.txt",true));
+                    //  계산 결과 파일 출력 후 연결리스트를 이용한 큐에 저장
                     fileWriter.write(String.valueOf(fileResult));
-                    // 연결리스트를 이용한 큐에 저장
                     resultQueue.offer(String.valueOf(fileResult));
-                    // fileResult 초기화
+                    // 계산 결과 변수 초기화
                     fileResult.delete(0, fileResult.length());
                     // 파일 닫음
                     fileWriter.newLine();
                     fileWriter.close();
                 } catch (IOException e) {
-                    Log.e("ERROR : ","File I/O Error");
+                    Log.e("ERROR : ", "File I/O Error");
                     e.printStackTrace();
                 }
             }
@@ -115,15 +118,20 @@ public class MainActivity extends AppCompatActivity {
         storage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("내장메모리 : ","테스트입니다.");
+                Log.i("내장메모리 : ", "테스트입니다.");
                 try {
-                    String buf;
-                    BufferedReader fileReader = new BufferedReader(
-                            new FileReader(getFilesDir() + "data.txt"));
-                    buf = fileReader.readLine();
-                    editText.setText(buf);
-
+                    if(resultQueue.peek().equals(null)){
+                        Toast.makeText(MainActivity.this, "입력된 수식이 없습니다",
+                                Toast.LENGTH_SHORT).show();
+                    }else {
+                        String buf;
+                        BufferedReader fileReader = new BufferedReader(
+                                new FileReader(getFilesDir() + "data.txt"));
+                        buf = fileReader.readLine();
+                        editText.setText(resultQueue.poll());
+                    }
                 } catch (FileNotFoundException e) {
+                    Toast.makeText(MainActivity.this, "입력된 파일이 없습니다.", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -137,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent);
-                Log.i("HISTORY : ","테스트입니다.");
+                Log.i("HISTORY : ", "테스트입니다.");
             }
         });
 

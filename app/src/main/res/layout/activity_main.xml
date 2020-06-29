@@ -11,21 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         >
         <Button
             android:id="@+id/memory_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="내장메모리 계산식 입력"
+            android:text="내장메모리 입력"
+            android:textSize="13dp"
             />
+
+        <Button
+            android:id="@+id/live"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="계산 Quiz"
+            android:textSize="13dp"
+            />
+
         <Button
             android:id="@+id/history"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="history"
+            android:textSize="13dp"
             />
     </LinearLayout>
 
