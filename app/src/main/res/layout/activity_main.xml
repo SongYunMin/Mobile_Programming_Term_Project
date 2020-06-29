@@ -10,17 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
         <Button
             android:id="@+id/memory_btn"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="내장메모리 계산식 입력"
             />
         <Button
-            android:layout_width="200dp"
+            android:id="@+id/history"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="HISTORY"
+            android:text="history"
             />
     </LinearLayout>
 
