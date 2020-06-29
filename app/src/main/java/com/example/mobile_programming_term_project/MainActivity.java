@@ -14,6 +14,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 큐를 이용한 연결리스트 생성
+        final Queue<String> historyQueue = new LinkedList<String>();
+
         // Status Bar 제거
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -79,13 +84,18 @@ public class MainActivity extends AppCompatActivity {
                 float result = calculationResult.Calculation(POSTFIX);
                 editText.setText(String.valueOf(result));           // 결과 editText 로 출력
                 // 계산결과를 파일로 출력할 변수에 이어 붙임
-                fileResult.append(" = ").append(String.valueOf(result + '\n'));
+                fileResult.append(" = ").append(String.valueOf(result));
                 // 파일 입출력 ex) 12*36/12 = 36.0
                 try {
                     BufferedWriter fileWriter = new BufferedWriter(
                             new FileWriter(getFilesDir() + "data.txt", true));
                     fileWriter.write(String.valueOf(fileResult));
+                    // 연결리스트를 이용한 큐에 저장
+                    historyQueue.offer(String.valueOf(fileResult));
+                    // fileResult 초기화
                     fileResult.delete(0, fileResult.length());
+                    // 파일 닫음
+                    fileWriter.newLine();
                     fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
