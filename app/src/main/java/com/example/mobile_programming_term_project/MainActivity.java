@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 String infix = editText.getText().toString();       // EditText에서 얻음
                 fileResult.append(editText.getText().toString());   // 먼저 계산식을 붙임
                 StringBuilder buf = new StringBuilder();            // 버퍼 필요
-
                 // 후위표기 메소드 return 값 받음
                 char[] POSTFIX = infixToPostFix.infixToPostfix(infix.toCharArray());
                 buf.append(POSTFIX).insert(0, ' ');     // 끝을 알리기 위한 공백 추가
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     fileWriter.newLine();
                     fileWriter.close();
                 } catch (IOException e) {
-                    Log.e("ERROR : ","File I/O Error");
+                    Log.e("ERROR : ", "File I/O Error");
                     e.printStackTrace();
                 }
             }
@@ -115,14 +114,13 @@ public class MainActivity extends AppCompatActivity {
         storage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("내장메모리 : ","테스트입니다.");
+                Log.i("내장메모리 : ", "테스트입니다.");
                 try {
                     String buf;
                     BufferedReader fileReader = new BufferedReader(
                             new FileReader(getFilesDir() + "data.txt"));
                     buf = fileReader.readLine();
                     editText.setText(buf);
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent);
-                Log.i("HISTORY : ","테스트입니다.");
+                Log.i("HISTORY : ", "테스트입니다.");
             }
         });
 

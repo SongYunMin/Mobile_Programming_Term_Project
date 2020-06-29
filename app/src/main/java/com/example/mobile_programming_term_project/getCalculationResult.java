@@ -61,7 +61,6 @@ public class getCalculationResult implements makeCalculationStack {
         return stackArr[top];
     }
 
-    // TODO :  Return Float Type 으로 진행 할 시, 숫자 붙이는 과정에서 소수점 까지 같이 붙는 문제
     // TODO :  괄호 '(', ')' 처리 문제 있음
     public float Calculation(char[] postFixArray) {
         int postFixLength = postFixArray.length, value;
