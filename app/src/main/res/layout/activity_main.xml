@@ -6,6 +6,41 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Yunmin's"
+            android:textSize="40dp"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/bmjua"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:text="Calculator"
+            android:textSize="30dp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/bmjua"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+
+
+    </LinearLayout>
+
+
+
     <!-- 기능들이 적용되어있는 LinearLayout -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +54,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="내장메모리 입력"
+            android:fontFamily="@font/bmjua"
             android:textSize="13dp"
             />
 
@@ -28,6 +64,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="계산 Quiz"
+            android:fontFamily="@font/bmjua"
             android:textSize="13dp"
             />
 
@@ -37,6 +74,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="history"
+            android:fontFamily="@font/bmjua"
             android:textSize="13dp"
             />
     </LinearLayout>
@@ -206,7 +244,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="AND" />
+            android:text="AND"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- OR 버튼 -->
         <Button
@@ -214,7 +254,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="OR" />
+            android:text="OR"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- NOT 버튼 -->
         <Button
@@ -222,7 +264,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="NOT" />
+            android:text="NOT"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- XOR 버튼 -->
         <Button
@@ -246,7 +290,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="XOR" />
+            android:text="XOR"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- OR 버튼 -->
         <Button
@@ -254,7 +300,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="파일입력" />
+            android:text="파일입력"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- NOT 버튼 -->
         <Button
@@ -262,7 +310,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="파일출력" />
+            android:text="파일출력"
+            android:fontFamily="@font/bmjua"
+            />
 
         <!-- XOR 버튼 -->
         <Button
@@ -270,6 +320,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back" />
+            android:text="Back"
+            android:fontFamily="@font/bmjua"
+            />
     </LinearLayout>
 </LinearLayout>

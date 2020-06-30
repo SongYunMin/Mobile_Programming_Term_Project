@@ -1,4 +1,5 @@
 package com.example.mobile_programming_term_project;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,12 +24,14 @@ public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     int equalClickNumber = 0;
     public static EditText editText;
+    public static int newData;
     public Button[] buttons = null;
-    public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C,btn_fileIn,btn_fileOut;
+    public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C, btn_fileIn, btn_fileOut;
     public Button btn_storage, btn_history;
 
     static Queue<String> resultQueue = new LinkedList<>(); // 연결리스트 이용 큐 생성
-    static LinkedList<String> historyList = new LinkedList<>();
+    static LinkedList<String> historyList = new LinkedList<String>(); // 히스토리 기능 리스트 생성
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,16 +110,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String buf;
-                BufferedWriter fileWriter = null;
+                BufferedWriter fileWriter = null;                       // 파일출력 변수 초기화
                 try {
+                    // 파일을 출력 시킬
                     fileWriter = new BufferedWriter(
-                            new FileWriter(getFilesDir() + "file.txt", true));
+                            new FileWriter(getFilesDir() + "file.txt", false));
                     buf = editText.getText().toString();
                     fileWriter.write(buf);
                     fileWriter.newLine();
                     editText.setText(null);
                     fileWriter.close();
-                }catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         // 파일 입력 기능
         btn_fileIn.setOnClickListener(new OnClickListener() {
             @Override
-             public void onClick(View v) {
+            public void onClick(View v) {
                 String buf;
                 BufferedReader fileReader = null;
                 try {
@@ -164,42 +168,43 @@ public class MainActivity extends AppCompatActivity {
                 // 파일 입출력 ex) 12*36/12 = 36.0
                 try {
                     BufferedWriter fileWriter = new BufferedWriter(
-                            new FileWriter(getFilesDir() + "data.txt",true));
-                    //  계산 결과 파일 출력 후 연결리스트를 이용한 큐에 저장
-                    fileWriter.write(String.valueOf(fileResult));
-                    resultQueue.offer(String.valueOf(fileResult));
+                            new FileWriter(getFilesDir() + "data.txt", true));
+                    fileWriter.write(String.valueOf(fileResult));       // 계산결과 파일 출력
+                    resultQueue.offer(String.valueOf(fileResult));      // 계산결과 Queue 삽입
+                    historyList.add(String.valueOf(fileResult));        // 계산결과 list 삽입
                     // 계산 결과 변수 초기화
-                    fileResult.delete(0, fileResult.length());
-                    // 파일 닫음
-                    fileWriter.newLine();
-                    fileWriter.close();
-                } catch (IOException e) {
-                    Log.e("ERROR : ", "File I/O Error");
+                    fileResult.delete(0, fileResult.length());          // String 초기화
+                    fileWriter.newLine();                               // 개행
+                    fileWriter.close();                                 // 파일 닫음
+                } catch (IOException e) {                               // 예외처리 catch
+                    Log.e("ERROR : ", "File I/O Error");    // Log 출력
                     e.printStackTrace();
                 }
+                newData=0;
             }
         });
 
-        // TODO : 내장메모리 입력 기능 구현
-        btn_storage.setOnClickListener(new OnClickListener() {
+        // 내장메모리 입력
+       btn_storage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("내장메모리 : ", "테스트입니다.");
+                // Log.i("내장메모리 : ", "테스트입니다.");
                 try {
-                    if(resultQueue.peek().equals(null)){
+                    // Queue 에 데이터가 없다면
+                    if (resultQueue.peek().equals(null)) {
                         Toast.makeText(MainActivity.this, "입력된 수식이 없습니다",
                                 Toast.LENGTH_SHORT).show();
-                    }else {
-                        String buf;
+                    } else {
+                        String buf;                                         // 버퍼 생성
+                        // 파일 Read 변수 초기화
                         BufferedReader fileReader = new BufferedReader(
                                 new FileReader(getFilesDir() + "data.txt"));
-                        buf = fileReader.readLine();
-                        editText.setText(resultQueue.poll());
+                        buf = fileReader.readLine();                        // 파일을 읽음
+                        editText.setText(resultQueue.poll());               // edit에 출력
                     }
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(MainActivity.this, "입력된 파일이 없습니다.", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {                         // 파일 예외처리
                     e.printStackTrace();
-                } catch (IOException e) {
+                } catch (IOException e) {                                   // 입출력 예외처리
                     e.printStackTrace();
                 }
             }
@@ -209,9 +214,10 @@ public class MainActivity extends AppCompatActivity {
         btn_history.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // History Activity 로 이동
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent);
-                Log.i("HISTORY : ", "테스트입니다.");
+                // Log.i("HISTORY : ", "테스트입니다.");
             }
         });
     }
