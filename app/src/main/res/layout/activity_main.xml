@@ -250,19 +250,19 @@
 
         <!-- OR 버튼 -->
         <Button
-            android:id="@+id/btn_n1"
+            android:id="@+id/file_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="n1" />
+            android:text="파일입력" />
 
         <!-- NOT 버튼 -->
         <Button
-            android:id="@+id/btn_n2"
+            android:id="@+id/file_output"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="n2" />
+            android:text="파일출력" />
 
         <!-- XOR 버튼 -->
         <Button
@@ -270,6 +270,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="n3" />
+            android:text="Back" />
     </LinearLayout>
 </LinearLayout>

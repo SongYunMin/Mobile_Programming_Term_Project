@@ -1,7 +1,5 @@
 package com.example.mobile_programming_term_project;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -26,22 +22,27 @@ import java.util.Queue;
 public class MainActivity extends AppCompatActivity {
     final int STACK_MAX_SIZE = 100;
     int equalClickNumber = 0;
-    private EditText editText;
+    public static EditText editText;
     public Button[] buttons = null;
-    public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C;
-    public Button storage, history;
-    // 연결리스트를 이용한 큐 생성
-    static Queue<String> resultQueue = new LinkedList<>();
+    public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C,btn_fileIn,btn_fileOut;
+    public Button btn_storage, btn_history;
 
+    static Queue<String> resultQueue = new LinkedList<>(); // 연결리스트 이용 큐 생성
+    static LinkedList<String> historyList = new LinkedList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 히스토리 기능을 위한 연결리스트 생성
-        final LinkedList<String> historyList = new LinkedList<>();
+        int status = 0;
         // Status Bar 제거
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        // 중위표기 -> 후위표기식 객체 선언
+        final getPostFix infixToPostFix = new getPostFix(STACK_MAX_SIZE);
+        // 후위표기식 계산 기능 객체 선언
+        final getCalculationResult calculationResult = new getCalculationResult(STACK_MAX_SIZE);
 
         buttons = new Button[16];
         int[] btn_id = {R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5,
@@ -49,22 +50,18 @@ public class MainActivity extends AppCompatActivity {
                 R.id.btn_multi, R.id.btn_division, R.id.btn_eq, R.id.btn_mod};
 
         editText = findViewById(R.id.edit);                 // 결과 출력 editText
-        history = findViewById(R.id.history);               // 히스토리 기능 버튼
-        storage = findViewById(R.id.memory_btn);            // 파일 수식 입력 버튼
+        btn_history = findViewById(R.id.history);               // 히스토리 기능 버튼
+        btn_storage = findViewById(R.id.memory_btn);            // 파일 수식 입력 버튼
+        btn_fileIn = findViewById(R.id.file_input);         // 파일 입력 버튼
+        btn_fileOut = findViewById(R.id.file_output);       // 파일 출력 버튼
+        btn_XOR = (Button) findViewById(R.id.btn_XOR);      // XOR 연산 버튼
+        btn_AND = (Button) findViewById(R.id.btn_AND);      // AND 연산 버튼
+        btn_OR = (Button) findViewById(R.id.btn_OR);        // OR 연산 버튼
+        btn_NOT = (Button) findViewById(R.id.btn_NOT);      // NOT 연산 버튼
+        btn_eq = (Button) findViewById(R.id.btn_eq);        // '=' 버튼
+        btn_C = (Button) findViewById(R.id.btn_c);          // 입력 초기화 버튼
         // 버튼들의 ID 받아옴
         for (int value : btn_id) findViewById(value).setOnClickListener(mClickListener);
-        // 비트 연산자
-        btn_XOR = (Button) findViewById(R.id.btn_XOR);
-        btn_AND = (Button) findViewById(R.id.btn_AND);
-        btn_OR = (Button) findViewById(R.id.btn_OR);
-        btn_NOT = (Button) findViewById(R.id.btn_NOT);
-        btn_eq = (Button) findViewById(R.id.btn_eq);
-        btn_C = (Button) findViewById(R.id.btn_c);
-
-        // 중위표기 -> 후위표기식 객체 선언
-        final getPostFix infixToPostFix = new getPostFix(STACK_MAX_SIZE);
-        // 후위표기식 계산 기능 객체 선언
-        final getCalculationResult calculationResult = new getCalculationResult(STACK_MAX_SIZE);
         // 계산식 지우기
         btn_C.setOnClickListener(new OnClickListener() {
             @Override
@@ -72,8 +69,77 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText(null);
             }
         });
+        // 비트 연산자들의 Click Listener
+        btn_XOR.setOnClickListener(new OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '^');
+            }
+        });
 
+        btn_AND.setOnClickListener(new OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '&');
+            }
+        });
 
+        btn_OR.setOnClickListener(new OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '|');
+            }
+        });
+
+        btn_NOT.setOnClickListener(new OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                editText.setText(editText.getText().toString() + '~');
+            }
+        });
+
+        // 파일 출력 기능
+        btn_fileOut.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String buf;
+                BufferedWriter fileWriter = null;
+                try {
+                    fileWriter = new BufferedWriter(
+                            new FileWriter(getFilesDir() + "file.txt", true));
+                    buf = editText.getText().toString();
+                    fileWriter.write(buf);
+                    fileWriter.newLine();
+                    editText.setText(null);
+                    fileWriter.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // 파일 입력 기능
+        btn_fileIn.setOnClickListener(new OnClickListener() {
+            @Override
+             public void onClick(View v) {
+                String buf;
+                BufferedReader fileReader = null;
+                try {
+                    fileReader = new BufferedReader(
+                            new FileReader(getFilesDir() + "file.txt"));
+                    buf = fileReader.readLine();
+                    editText.setText(buf);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         // '=' 를 누를때 발생하는 이벤트
         btn_eq.setOnClickListener(new OnClickListener() {
@@ -115,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // TODO : 내장메모리 입력 기능 구현
-        storage.setOnClickListener(new OnClickListener() {
+        btn_storage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("내장메모리 : ", "테스트입니다.");
@@ -140,45 +206,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // TODO : 히스토리 기능 구현
-        history.setOnClickListener(new OnClickListener() {
+        btn_history.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(intent);
                 Log.i("HISTORY : ", "테스트입니다.");
-            }
-        });
-
-        // 비트 연산자들의 Click Listener
-        btn_XOR.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                editText.setText(editText.getText().toString() + '^');
-            }
-        });
-
-        btn_AND.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                editText.setText(editText.getText().toString() + '&');
-            }
-        });
-
-        btn_OR.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                editText.setText(editText.getText().toString() + '|');
-            }
-        });
-
-        btn_NOT.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                editText.setText(editText.getText().toString() + '~');
             }
         });
     }
