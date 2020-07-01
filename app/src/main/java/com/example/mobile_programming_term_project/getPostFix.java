@@ -128,11 +128,12 @@ public class getPostFix implements makePostfixStack {
                     break;
                 case ')':                           // 오른쪽 괄호
                     top_op = pop();
+                    result.append(' ');
                     // 왼쪽 괄호를 만날때 까지 출력
                     while (top_op != '(') {
                         result.append(top_op);
-                        result.append(' ');
                         top_op = pop();
+                        result.append(' ');
                     }
                     break;
                 default:                            // 피연산자라면?
@@ -140,17 +141,18 @@ public class getPostFix implements makePostfixStack {
                     if (i == exp.length - 1) {
                         break;
                     }
-
                     if (exp[i + 1] == '+' || exp[i + 1] == '-' || exp[i + 1] == '*'
                             || exp[i + 1] == '/' || exp[i + 1] == '%' || exp[i + 1] == '^'
-                            || exp[i + 1] == '&' || exp[i + 1] == '|' || exp[i + 1] == '~') {
+                            || exp[i + 1] == '&' || exp[i + 1] == '|' || exp[i + 1] == '~' ) {
                         result.append(' ');
                     }
                     break;
             }
         }
         while (!isEmpty()) {
-            result.append(' ');
+            if(exp[i - 1] != ')') {
+                result.append(' ');
+            }
             result.append(pop());
             Log.i("Result : ", String.valueOf(result));
             resultChar = String.valueOf(result).toCharArray();
