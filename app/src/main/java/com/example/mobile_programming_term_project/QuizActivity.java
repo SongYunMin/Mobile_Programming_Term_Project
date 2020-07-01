@@ -52,6 +52,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onResume();
         String buf;
 
+        // TODO : edit 로 입력받은값을 workBook 을 통해 출력된 text 를 객체로 보내 계산후 결과 비교
         workBook.setText(example[(int)((Math.random()*10000)%10)]);
 
         System.out.println("test");
