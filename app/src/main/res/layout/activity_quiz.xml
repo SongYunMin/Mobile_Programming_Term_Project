@@ -42,7 +42,7 @@
         />
 
     <EditText
-        android:id="@+id/result"
+        android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
@@ -52,6 +52,55 @@
         android:hint="여기에 정답을 입력하세요"
         android:fontFamily="@font/bmjua"
         />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:text="제출"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:fontFamily="@font/bmjua"
+        />
+
+    <TextView
+        android:id="@+id/trueorfalse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="결과"
+        android:textSize="50dp"
+        android:textColor="#00FFFF"
+        android:fontFamily="@font/bmjua"
+        />
+
+    <TextView
+        android:id="@+id/truenum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="맞춘개수 : "
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/bmjua"
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/time"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="맞춘개수 : "-->
+<!--        android:textSize="25dp"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:fontFamily="@font/bmjua"-->
+<!--        />-->
+
+
 
 
 </LinearLayout>

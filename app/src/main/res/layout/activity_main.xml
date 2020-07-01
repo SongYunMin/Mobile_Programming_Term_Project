@@ -348,7 +348,7 @@
 
             <!-- XOR 버튼 -->
             <Button
-                android:id="@+id/btn_n3"
+                android:id="@+id/btn_back"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1"
