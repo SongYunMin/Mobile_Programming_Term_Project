@@ -1,327 +1,318 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
+        android:padding="10dp"
         >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Yunmin's"
-            android:textSize="40dp"
             android:layout_gravity="center"
-            android:textColor="#FFFFFF"
             android:fontFamily="@font/bmjua"
             android:gravity="center"
             android:padding="5dp"
-            />
+            android:text="Yunmin's Calculator"
+            android:textColor="#FFFFFF"
+            android:textSize="40dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="60dp"
-            android:text="Calculator"
-            android:textSize="30dp"
-            android:textColor="#FFFFFF"
             android:fontFamily="@font/bmjua"
             android:gravity="center"
             android:padding="5dp"
-            />
+            android:text="Mobile Programming Term Project"
+            android:textColor="#FFFFFF"
+            android:textSize="23dp" />
 
-
-    </LinearLayout>
-
-
-
-    <!-- 기능들이 적용되어있는 LinearLayout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        >
-        <Button
-            android:id="@+id/memory_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="내장메모리 입력"
-            android:fontFamily="@font/bmjua"
-            android:textSize="13dp"
-            />
-
-        <Button
-            android:id="@+id/live"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="계산 Quiz"
-            android:fontFamily="@font/bmjua"
-            android:textSize="13dp"
-            />
-
-        <Button
-            android:id="@+id/history"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="history"
-            android:fontFamily="@font/bmjua"
-            android:textSize="13dp"
-            />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <Button
-            android:id="@+id/btn_7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="7" />
-
-        <Button
-            android:id="@+id/btn_8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="8" />
-
-        <Button
-            android:id="@+id/btn_9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="9" />
-
-        <Button
-            android:id="@+id/btn_division"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="/" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_4"
-            android:layout_width="0dp"
+        <!-- 기능들이 적용되어있는 LinearLayout -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="4" />
+            android:orientation="horizontal"
+            android:weightSum="3">
 
+            <Button
+                android:id="@+id/memory_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="내장메모리 입력"
+                android:textSize="13dp" />
 
-        <!-- 나눗셈 버튼 -->
-        <Button
+            <Button
+                android:id="@+id/live"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="계산 Quiz"
+                android:textSize="13dp" />
 
-            android:id="@+id/btn_5"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/history"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="history"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="5" />
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <Button
-            android:id="@+id/btn_6"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/btn_8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/btn_9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="9" />
+
+            <Button
+                android:id="@+id/btn_division"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="/" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="6" />
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <!-- 곱셈 버튼 -->
-        <Button
-            android:id="@+id/btn_multi"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4" />
+
+
+            <!-- 나눗셈 버튼 -->
+            <Button
+
+                android:id="@+id/btn_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/btn_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="6" />
+
+            <!-- 곱셈 버튼 -->
+            <Button
+                android:id="@+id/btn_multi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="*" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="*" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+            <Button
 
-        <Button
+                android:id="@+id/btn_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1" />
 
-            android:id="@+id/btn_1"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/btn_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3" />
+
+            <!-- 뺄셈 버튼 -->
+            <Button
+                android:id="@+id/btn_sub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1" />
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <Button
-            android:id="@+id/btn_2"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/btn_eq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="=" />
+
+            <!-- 취소 버튼 -->
+            <Button
+                android:id="@+id/btn_c"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="C" />
+
+            <!-- 덧셈 버튼 -->
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2" />
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <Button
-            android:id="@+id/btn_3"
-            android:layout_width="0dp"
+            <!-- AND 버튼 -->
+            <Button
+                android:id="@+id/btn_AND"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="AND" />
+
+            <!-- OR 버튼 -->
+            <Button
+                android:id="@+id/btn_OR"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="OR" />
+
+            <!-- NOT 버튼 -->
+            <Button
+                android:id="@+id/btn_NOT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="NOT" />
+
+            <!-- XOR 버튼 -->
+            <Button
+                android:id="@+id/btn_mod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="%" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="3" />
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <!-- 뺄셈 버튼 -->
-        <Button
-            android:id="@+id/btn_sub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-" />
-    </LinearLayout>
+            <!-- AND 버튼 -->
+            <Button
+                android:id="@+id/btn_XOR"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="XOR" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+            <!-- OR 버튼 -->
+            <Button
+                android:id="@+id/file_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="파일입력" />
 
-        <Button
-            android:id="@+id/btn_0"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0" />
+            <!-- NOT 버튼 -->
+            <Button
+                android:id="@+id/file_output"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="파일출력" />
 
-        <Button
-            android:id="@+id/btn_eq"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="=" />
-
-        <!-- 취소 버튼 -->
-        <Button
-            android:id="@+id/btn_c"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="C" />
-
-        <!-- 덧셈 버튼 -->
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="+" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <!-- AND 버튼 -->
-        <Button
-            android:id="@+id/btn_AND"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="AND"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- OR 버튼 -->
-        <Button
-            android:id="@+id/btn_OR"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="OR"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- NOT 버튼 -->
-        <Button
-            android:id="@+id/btn_NOT"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="NOT"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- XOR 버튼 -->
-        <Button
-            android:id="@+id/btn_mod"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="%" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <!-- AND 버튼 -->
-        <Button
-            android:id="@+id/btn_XOR"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="XOR"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- OR 버튼 -->
-        <Button
-            android:id="@+id/file_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="파일입력"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- NOT 버튼 -->
-        <Button
-            android:id="@+id/file_output"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="파일출력"
-            android:fontFamily="@font/bmjua"
-            />
-
-        <!-- XOR 버튼 -->
-        <Button
-            android:id="@+id/btn_n3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Back"
-            android:fontFamily="@font/bmjua"
-            />
+            <!-- XOR 버튼 -->
+            <Button
+                android:id="@+id/btn_n3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bmjua"
+                android:text="Back" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

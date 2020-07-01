@@ -1,12 +1,15 @@
 package com.example.mobile_programming_term_project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -53,13 +56,14 @@ public class HistoryActivity extends AppCompatActivity {
             // 출력되어 초기화가 되었다고 Main에 알림
             MainActivity.newData++;
         }
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        final Context context = this;
+        final EditText listNumber = new EditText(context);
+        final EditText resultText = new EditText(context);
 
         // 기능들 id 불러움
         Button btnReset = findViewById(R.id.reset);
@@ -79,7 +83,7 @@ public class HistoryActivity extends AppCompatActivity {
                     );
                     fileWriter.close();
                     root.removeAllViews();
-                    setContentView(R.layout.activity_history);
+                    setContentView(R.layout.activity_history);       // setContentView 이용 재배치
                     Toast.makeText(HistoryActivity.this,
                             "성공적으로 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
@@ -88,10 +92,87 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        // 리스트 삽입 연산
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 현재 활성화 메소드 Context 가 필요함
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                final AlertDialog.Builder alertDialogBuilder_ = new AlertDialog.Builder(context);
+                // 제목 세팅
+                alertDialogBuilder.setTitle("계산식 삽입");
+                // AlertDialog Setting
+                alertDialogBuilder
+                        .setMessage("삽입할 Index(자리) 를 입력해 주십시오")
+                        .setCancelable(false)
+                        .setView(listNumber)
+                        .setPositiveButton("다음",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final String indexBuf = listNumber.getText().toString();
+                                        final int indexToInt = Integer.parseInt(indexBuf);
+                                        alertDialogBuilder_.setTitle("계산식 삽입");
+                                        alertDialogBuilder_
+                                                .setMessage("삽입할 수식을 입력해 주십시오")
+                                                .setCancelable(false)
+                                                .setView(resultText)
+                                                .setPositiveButton("삽입",
+                                                        new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                String resultBuf = resultText.getText().toString();
+                                                                historyList.add(indexToInt, resultBuf);
+                                                                try {
+                                                                    BufferedWriter fileWriter = new BufferedWriter(
+                                                                            new FileWriter(getFilesDir() + "data.txt", false)
+                                                                    );
+                                                                } catch (IOException e) {
+                                                                    e.printStackTrace();
+                                                                }
 
+                                                                try {
+                                                                    BufferedWriter fileWriter = new BufferedWriter(
+                                                                            new FileWriter(getFilesDir() + "data.txt", true)
+                                                                    );
+                                                                    for (int i = 0; i < historyList.size(); i++) {
+                                                                        String buf = historyList.get(i);
+                                                                        fileWriter.write(buf);
+                                                                        fileWriter.newLine();
+                                                                    }
+                                                                    fileWriter.close();
+                                                                } catch (IOException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                                Toast.makeText(HistoryActivity.this, indexBuf+"번 자리에 정상 삽입 되었습니다",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                                finish();
+                                                                root.removeAllViews();
+                                                                setContentView(R.layout.activity_history);
+                                                                Intent intent = new Intent(getApplicationContext(),HistoryActivity.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        })
+                                                .setNegativeButton("취소",
+                                                        new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+                                        AlertDialog alertDialog = alertDialogBuilder_.create();
+                                        alertDialog.show();
+                                    }
+                                })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
