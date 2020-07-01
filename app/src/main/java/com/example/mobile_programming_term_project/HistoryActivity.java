@@ -92,6 +92,44 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        //리스트 삭제 연산
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("계산식 삭제");
+                // AlertDialog Setting
+                alertDialogBuilder
+                        .setMessage("삭제할 Index(자리) 를 입력해 주십시오")
+                        .setCancelable(false)
+                        .setView(listNumber)
+                        .setPositiveButton("삭제",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final String indexBuf = listNumber.getText().toString();
+                                        final int indexToInt = Integer.parseInt(indexBuf);
+                                        historyList.remove(indexToInt);
+                                        Toast.makeText(context, indexBuf + "번 데이터가 삭제 되었습니다", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        root.removeAllViews();
+                                        setContentView(R.layout.activity_history);
+                                        Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
         // 리스트 삽입 연산
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,12 +182,12 @@ public class HistoryActivity extends AppCompatActivity {
                                                                 } catch (IOException e) {
                                                                     e.printStackTrace();
                                                                 }
-                                                                Toast.makeText(HistoryActivity.this, indexBuf+"번 자리에 정상 삽입 되었습니다",
+                                                                Toast.makeText(HistoryActivity.this, indexBuf + "번 자리에 정상 삽입 되었습니다",
                                                                         Toast.LENGTH_SHORT).show();
                                                                 finish();
                                                                 root.removeAllViews();
                                                                 setContentView(R.layout.activity_history);
-                                                                Intent intent = new Intent(getApplicationContext(),HistoryActivity.class);
+                                                                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                                                                 startActivity(intent);
                                                             }
                                                         })
