@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class HistoryActivity extends AppCompatActivity {
-    private ArrayList<String> arrayData;
     static public LinkedList<String> historyList = new LinkedList<String>();
     public static Context mContext;
     public static ListView mListView;

@@ -10,7 +10,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static int newData;
     public Button[] buttons = null;
     public Button btn_XOR, btn_AND, btn_OR, btn_NOT, btn_eq, btn_C, btn_fileIn, btn_fileOut;
-    public Button btn_storage, btn_history;
+    public Button btn_storage, btn_history, btn_quiz;
 
     static Queue<String> resultQueue = new LinkedList<>(); // 연결리스트 이용 큐 생성
     static LinkedList<String> historyList = new LinkedList<String>(); // 히스토리 기능 리스트 생성
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit);                 // 결과 출력 editText
         btn_history = findViewById(R.id.history);               // 히스토리 기능 버튼
         btn_storage = findViewById(R.id.memory_btn);            // 파일 수식 입력 버튼
+        btn_quiz = findViewById(R.id.quiz);
         btn_fileIn = findViewById(R.id.file_input);         // 파일 입력 버튼
         btn_fileOut = findViewById(R.id.file_output);       // 파일 출력 버튼
         btn_XOR = (Button) findViewById(R.id.btn_XOR);      // XOR 연산 버튼
@@ -102,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editText.setText(editText.getText().toString() + '~');
+            }
+        });
+
+
+        btn_quiz.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), QuizActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -180,12 +192,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("ERROR : ", "File I/O Error");    // Log 출력
                     e.printStackTrace();
                 }
-                newData=0;
+                newData = 0;
             }
         });
 
         // 내장메모리 입력
-       btn_storage.setOnClickListener(new OnClickListener() {
+        btn_storage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Log.i("내장메모리 : ", "테스트입니다.");

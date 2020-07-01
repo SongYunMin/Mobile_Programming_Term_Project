@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Calculation Quiz"
+        android:textSize="40dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/bmjua"
+        android:gravity="center"
+        android:padding="5dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="랜덤하게 출제되는 문제를 맞추세요!"
+        android:textSize="15dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/bmjua"
+        android:gravity="center"
+        android:padding="5dp"
+        />
+
+
+</LinearLayout>

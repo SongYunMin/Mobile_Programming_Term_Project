@@ -6,6 +6,8 @@ public class getCalculationResult implements makeCalculationStack {
     private int stackSize;
     private int top;
     private int[] stackArr;
+    private int resultQuiz;
+
 
     // 생성자는 String 인자로 받아서 초기화 함
     getCalculationResult(int stackSize) {
@@ -130,6 +132,11 @@ public class getCalculationResult implements makeCalculationStack {
                 op1.delete(0, op1.length());
             }
         }
+        resultQuiz = peek();
         return pop();
+    }
+    public int isGetQuizAnswer()
+    {
+        return resultQuiz;
     }
 }
