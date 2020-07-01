@@ -110,6 +110,27 @@ public class HistoryActivity extends AppCompatActivity {
                                         final String indexBuf = listNumber.getText().toString();
                                         final int indexToInt = Integer.parseInt(indexBuf);
                                         historyList.remove(indexToInt);
+                                        try {
+                                            BufferedWriter fileWriter = new BufferedWriter(
+                                                    new FileWriter(getFilesDir() + "data.txt", false)
+                                            );
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        try {
+                                            BufferedWriter fileWriter = new BufferedWriter(
+                                                    new FileWriter(getFilesDir() + "data.txt", true)
+                                            );
+                                            for (int i = 0; i < historyList.size(); i++) {
+                                                String buf = historyList.get(i);
+                                                fileWriter.write(buf);
+                                                fileWriter.newLine();
+                                            }
+                                            fileWriter.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                         Toast.makeText(context, indexBuf + "번 데이터가 삭제 되었습니다", Toast.LENGTH_SHORT).show();
                                         finish();
                                         root.removeAllViews();
