@@ -6,4 +6,7 @@ public interface makePostfixStack {
     void push (char item);
     char pop();
     char peek();
+    int returnOfPriority(char op);
+    char[] infixToPostfix(char[] exp);
+    void init_stack(getPostFix stack);
 }

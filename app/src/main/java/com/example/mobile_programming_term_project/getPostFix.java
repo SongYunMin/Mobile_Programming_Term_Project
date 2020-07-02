@@ -66,12 +66,14 @@ public class getPostFix implements makePostfixStack {
     }
 
     // 스택 초기화 메소드
-    private void init_stack(getPostFix stack) {
+    @Override
+    public void init_stack(getPostFix stack) {
         stack.top = -1;
     }
 
     // 우선순위 반환 메소드
-    private int returnOfPriority(char op) {
+    @Override
+    public int returnOfPriority(char op) {
         switch (op) {
             case '(':
             case ')':
@@ -96,7 +98,8 @@ public class getPostFix implements makePostfixStack {
     }
 
     // 중위수식 -> 후위수식 변환 메소드
-    char[] infixToPostfix(char[] exp) {
+    @Override
+    public char[] infixToPostfix(char[] exp) {
         int i = 0;
         char ch, top_op;
         int len = exp.length;

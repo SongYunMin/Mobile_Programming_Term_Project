@@ -6,4 +6,5 @@ public interface makeCalculationStack {
     void push(int item);
     int pop();
     int peek();
+    float Calculation(char[] postFixArray);
 }

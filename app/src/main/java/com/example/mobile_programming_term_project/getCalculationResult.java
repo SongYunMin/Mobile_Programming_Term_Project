@@ -8,7 +8,6 @@ public class getCalculationResult implements makeCalculationStack {
     private int[] stackArr;
     private int resultQuiz;
 
-
     // 생성자는 String 인자로 받아서 초기화 함
     getCalculationResult(int stackSize) {
         top = -1;
@@ -63,7 +62,7 @@ public class getCalculationResult implements makeCalculationStack {
         return stackArr[top];
     }
 
-    // TODO :  괄호 '(', ')' 처리 문제 있음
+    @Override
     public float Calculation(char[] postFixArray) {
         int postFixLength = postFixArray.length, value;
         char ch;
@@ -135,8 +134,8 @@ public class getCalculationResult implements makeCalculationStack {
         resultQuiz = peek();
         return pop();
     }
-    public int isGetQuizAnswer()
-    {
+
+    public int isGetQuizAnswer() {
         return resultQuiz;
     }
 }
